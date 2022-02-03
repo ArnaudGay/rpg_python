@@ -85,8 +85,11 @@ class PlayerRPG:
             self.inventory = ["Blaided Glaive", "Leather armor"]
 
 class Monster:
-    def __init__(self):
-        pass
+    def __init__(self, Monster_type):
+        if Monster_type == "Human":
+            self.attack = 20
+            self.defence = 10
+            self.hp = 200
 
 class Use_Potion():
     def __init__(self):
