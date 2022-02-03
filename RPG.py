@@ -1,5 +1,5 @@
 class PlayerRPG:
-    def __init__(self):
+    def __init__(self, Player_type):
         if Player_type == "Warrior":
             self.attack = 100
             self.magic = 0
