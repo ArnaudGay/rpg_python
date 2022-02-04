@@ -2,95 +2,132 @@ class PlayerRPG:
     def __init__(self, Player_type):
         if Player_type == "Warrior":
             self.attack = 100
-            self.magic = 0
+            self.magic = None
             self.defence = 80
-            self.hp = 100
+            self.hp = 210
             self.inventory = ["Sword", "Shield", "Plate armor"]
             
         if Player_type == "Paladin":
-            self.attack = 60
+            self.attack = 80
             self.magic = 80
             self.defence = 80
-            self.hp = 80
-            self.inventory = ["Hammer", "Plate armor"]
+            self.hp = 190
+            self.inventory = ["Hammer", "Plate armor", "Cape"]
         
         if Player_type == "Hunter":
-            self.attack = 100
-            self.magic = 0
+            self.attack = 105
+            self.magic = None
             self.defence = 60
-            self.hp = 70
+            self.hp = 170
             self.inventory = ["Bow", "Arrow", "Mail armor"]
             
         if Player_type == "Rogue":
-            self.attack = 110
-            self.magic = 0
+            self.attack = 115
+            self.magic = None
             self.defence = 40
-            self.hp = 60
+            self.hp = 150
             self.inventory = ["Double Dagger", "Leather armor"]
             
         if Player_type == "Priest":
-            self.attack = 1
+            self.attack = 5
             self.magic = 80
             self.defence = 20
-            self.hp = 55
-            self.inventory = ["Magic wand", "Cloth armor"]
+            self.hp = 140
+            self.inventory = ["Magic baton", "Cloth armor"]
         
         if Player_type == "Death Knight":
             self.attack = 90
             self.magic = 60
             self.defence = 80
-            self.hp = 90
+            self.hp = 190
             self.inventory = ["Enchanted Sword", "Plate armor"]
             
         if Player_type == "Shaman":
             self.attack = 60
             self.magic = 80
             self.defence = 60
-            self.hp = 80
+            self.hp = 170
             self.inventory = ["Sledgehammer", "Mail armor"]
         
         if Player_type == "Mage":
-            self.attack = 1
+            self.attack = 5
             self.magic = 100
             self.defence = 20
-            self.hp = 50
+            self.hp = 140
             self.inventory = ["Magic baton", "Cloth armor"]
             
         if Player_type == "Warlock":
-            self.attack = 1
-            self.magic = 110
-            self.defence = 10
-            self.hp = 45
+            self.attack = 5
+            self.magic = 105
+            self.defence = 20
+            self.hp = 140
             self.inventory = ["Possessed baton", "Cloth armor"]
             
         if Player_type == "Monk":
             self.attack = 80
-            self.magic = 0
+            self.magic = None
             self.defence = 60
-            self.hp = 80
-            self.inventory = ["Leather armor"]
+            self.hp = 180
+            self.inventory = ["Baton", "Leather armor"]
             
         if Player_type == "Druid":
             self.attack = 60
             self.magic = 80
             self.defence = 60
-            self.hp = 60
-            self.inventory = ["Magic", "Leather armor"]
+            self.hp = 145
+            self.inventory = ["Magic baton", "Leather armor"]
             
         if Player_type == "Demon Hunter":
             self.attack = 80
-            self.magic = 0
+            self.magic = 20
             self.defence = 60
-            self.hp = 70
+            self.hp = 175
             self.inventory = ["Blaided Glaive", "Leather armor"]
 
 class Monster:
     def __init__(self, Monster_type):
-        if Monster_type == "Human":
-            self.attack = 20
-            self.defence = 10
+        if Monster_type == "Beasts":
+            self.attack = 8
+            self.defence = 8
+            self.magic_resistance = 0
+            self.hp = 140
+            
+        if Monster_type == "Humans":
+            self.attack = 12
+            self.defence = 15
+            self.magic_resistance = 15
+            self.hp = 180
+            
+        if Monster_type == "Undead": 
+            self.attack = 13
+            self.defence = 20
+            self.magic_resistance = 20
+            self.hp = 180
+            
+        if Monster_type == "Robots" :
+            self.attack == 15
+            self.defence = 17
+            self.magic_resistance = 17
             self.hp = 200
-
+            
+        if Monster_type == "Giants":
+            self.attack = 10
+            self.defence = 20
+            self.magic_resistance = 20
+            self.hp = 220
+            
+        if Monster_type == "Demons":
+            self.attack = 18
+            self.defence = 20
+            self.magic_resistance = 20
+            self.hp = 200
+            
+        if Monster_type == "Boss": #Only for the lvl 1 Boss
+            self.attack = 25
+            self.defence = 30
+            self.magic_resistance = 30
+            self.hp = 300
+            
 class Use_Potion():
     def __init__(self):
         pass
