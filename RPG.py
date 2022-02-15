@@ -172,3 +172,13 @@ class Donjon:
 class Fight:
     def __init__(self):
         pass
+
+
+class Interface:
+    def __init__(self):
+        pass
+
+
+class Save:
+    def __init__(self):
+        pass
