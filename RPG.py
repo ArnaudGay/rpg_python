@@ -171,3 +171,4 @@ class Fight:
 
 print("oui")
 
+print("non")
