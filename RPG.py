@@ -12,13 +12,11 @@ class PlayerRPG(Entity):
             self.inventory = ["Sword", "Shield", "Plate armor"]
             
         if Player_type == "Paladin":
-            self.attack = 80
-            self.magic = 80
-            self.defence = 80
-            self.hp = 570
+            Entity.__init__(80, 80, 80, 570)
             self.inventory = ["Hammer", "Plate armor", "Cape"]
         
         if Player_type == "Hunter":
+            Entity.__init__()
             self.attack = 105
             self.magic = None
             self.defence = 60
