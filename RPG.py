@@ -169,6 +169,3 @@ class Fight:
     def __init__(self):
         pass
 
-print("oui")
-
-print("non")
