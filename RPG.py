@@ -1,5 +1,5 @@
 class Entity :
-    def __init__(self, attack, magic, defence, hp):
+    def __init__(self, attack, magic, defence, magic_resistance, hp):
         self.attack = attack
         self.magic = magic
         self.defence = defence
@@ -89,45 +89,46 @@ class PlayerRPG(Entity):
     def Open_inventory(self):
         print(self.inventory) 
 
-class Monster:
-    def __init__(self, Monster_type):
-        if Monster_type == "Beast":
+class Monster(Entity):
+    def __init__(self, monster_type):
+        if monster_type == "Beast":
+            Entity().__init__(8, None, 8, 0, 140,) . 
             self.attack = 8
             self.defence = 8
             self.magic_resistance = 0
             self.hp = 140
             
-        if Monster_type == "Human":
+        if monster_type == "Human":
             self.attack = 12
             self.defence = 15
             self.magic_resistance = 15
             self.hp = 180
             
-        if Monster_type == "Undead": 
+        if monster_type == "Undead": 
             self.attack = 13
             self.defence = 20
             self.magic_resistance = 20
             self.hp = 180
             
-        if Monster_type == "Robot" :
+        if monster_type == "Robot" :
             self.attack == 15
             self.defence = 17
             self.magic_resistance = 17
             self.hp = 200
             
-        if Monster_type == "Giant":
+        if monster_type == "Giant":
             self.attack = 10
             self.defence = 20
             self.magic_resistance = 20
             self.hp = 220
             
-        if Monster_type == "Demon":
+        if monster_type == "Demon":
             self.attack = 18
             self.defence = 20
             self.magic_resistance = 20
             self.hp = 200
             
-        if Monster_type == "Boss":
+        if monster_type == "Boss":
             self.attack = 50
             self.defence = 30
             self.magic_resistance = 30
