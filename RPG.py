@@ -83,6 +83,9 @@ class PlayerRPG:
             self.defence = 60
             self.hp = 175
             self.inventory = ["Blaided Glaive", "Leather armor"]
+            
+    def Open_inventory(self):
+        print(self.inventory) 
 
 class Monster:
     def __init__(self, Monster_type):
@@ -126,12 +129,30 @@ class Monster:
             self.attack = 25
             self.defence = 30
             self.magic_resistance = 30
-            self.hp = 300
+            self.hp = 300 
+                         
+class Potion:
+    def __init__(self, name, effect, effect_amount):
+        self.name = name
+        self.effect = effect
+        self.effect_amount = effect_amount
+    
+    def Use(self, player):
+        if self.effect == "Heal":
+            player.hp += self.effect_amount
+        elif self.effect == "Strength":
+            player.strength += self.effect_amount
+        elif self.effect == "Defence":
+            player.defence += self.effect_amount
+        
+    def Throw(self, monster):
+        if self.effect == "Heal":
+            monster.hp -= self.effect_amount
+        elif self.effect == "Strength":
+            monster.strength -= self.effect_amount
+        elif self.effect == "Defence":
+            monster.defence -= self.effect_amount
             
-class Use_Potion():
-    def __init__(self):
-        pass
-
 class Moves:
     def __init__(self):
         pass
