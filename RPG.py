@@ -1,20 +1,14 @@
 class Entity :
-    def __init__(self, name, hp):
-        self.name =name
+    def __init__(self, attack, magic, defence, hp):
+        self.attack = attack
+        self.magic = magic
+        self.defence = defence
         self.hp = hp
         
-class Player(Entity):
-    def __init__ (self, name, hp):
-        Entity.__init__(self, name, hp)
-        self.inventory = []
-        
-class PlayerRPG:
+class PlayerRPG(Entity):
     def __init__(self, Player_type):
         if Player_type == "Warrior":
-            self.attack = 100
-            self.magic = None
-            self.defence = 80
-            self.hp = 630
+            Entity.__init__(100, None, 80, 630)
             self.inventory = ["Sword", "Shield", "Plate armor"]
             
         if Player_type == "Paladin":
@@ -99,13 +93,13 @@ class PlayerRPG:
 
 class Monster:
     def __init__(self, Monster_type):
-        if Monster_type == "Beasts":
+        if Monster_type == "Beast":
             self.attack = 8
             self.defence = 8
             self.magic_resistance = 0
             self.hp = 140
             
-        if Monster_type == "Humans":
+        if Monster_type == "Human":
             self.attack = 12
             self.defence = 15
             self.magic_resistance = 15
@@ -117,29 +111,29 @@ class Monster:
             self.magic_resistance = 20
             self.hp = 180
             
-        if Monster_type == "Robots" :
+        if Monster_type == "Robot" :
             self.attack == 15
             self.defence = 17
             self.magic_resistance = 17
             self.hp = 200
             
-        if Monster_type == "Giants":
+        if Monster_type == "Giant":
             self.attack = 10
             self.defence = 20
             self.magic_resistance = 20
             self.hp = 220
             
-        if Monster_type == "Demons":
+        if Monster_type == "Demon":
             self.attack = 18
             self.defence = 20
             self.magic_resistance = 20
             self.hp = 200
             
-        if Monster_type == "Boss": #Only for the lvl 1 Boss
-            self.attack = 25
+        if Monster_type == "Boss":
+            self.attack = 50
             self.defence = 30
             self.magic_resistance = 30
-            self.hp = 300 
+            self.hp = 500 
                          
 class Potion:
     def __init__(self, name, effect, effect_amount):
