@@ -1,87 +1,97 @@
+class Entity :
+    def __init__(self, name, hp):
+        self.name =name
+        self.hp = hp
+        
+class Player(Entity):
+    def __init__ (self, name, hp):
+        Entity.__init__(self, name, hp)
+        self.inventory = []
+        
 class PlayerRPG:
     def __init__(self, Player_type):
         if Player_type == "Warrior":
             self.attack = 100
             self.magic = None
             self.defence = 80
-            self.hp = 210
+            self.hp = 630
             self.inventory = ["Sword", "Shield", "Plate armor"]
             
         if Player_type == "Paladin":
             self.attack = 80
             self.magic = 80
             self.defence = 80
-            self.hp = 190
+            self.hp = 570
             self.inventory = ["Hammer", "Plate armor", "Cape"]
         
         if Player_type == "Hunter":
             self.attack = 105
             self.magic = None
             self.defence = 60
-            self.hp = 170
+            self.hp = 510
             self.inventory = ["Bow", "Arrow", "Mail armor"]
             
         if Player_type == "Rogue":
             self.attack = 115
             self.magic = None
             self.defence = 40
-            self.hp = 150
+            self.hp = 450
             self.inventory = ["Double Dagger", "Leather armor"]
             
         if Player_type == "Priest":
             self.attack = 5
             self.magic = 80
             self.defence = 20
-            self.hp = 140
+            self.hp = 420
             self.inventory = ["Magic baton", "Cloth armor"]
         
         if Player_type == "Death Knight":
             self.attack = 90
             self.magic = 60
             self.defence = 80
-            self.hp = 190
+            self.hp = 570
             self.inventory = ["Enchanted Sword", "Plate armor"]
             
         if Player_type == "Shaman":
             self.attack = 60
             self.magic = 80
             self.defence = 60
-            self.hp = 170
+            self.hp = 510
             self.inventory = ["Sledgehammer", "Mail armor"]
         
         if Player_type == "Mage":
             self.attack = 5
             self.magic = 100
             self.defence = 20
-            self.hp = 140
+            self.hp = 420
             self.inventory = ["Magic baton", "Cloth armor"]
             
         if Player_type == "Warlock":
             self.attack = 5
             self.magic = 105
             self.defence = 20
-            self.hp = 140
+            self.hp = 420
             self.inventory = ["Possessed baton", "Cloth armor"]
             
         if Player_type == "Monk":
             self.attack = 80
             self.magic = None
             self.defence = 60
-            self.hp = 180
+            self.hp = 540
             self.inventory = ["Baton", "Leather armor"]
             
         if Player_type == "Druid":
             self.attack = 60
             self.magic = 80
             self.defence = 60
-            self.hp = 145
+            self.hp = 435
             self.inventory = ["Magic baton", "Leather armor"]
             
         if Player_type == "Demon Hunter":
             self.attack = 80
             self.magic = 20
             self.defence = 60
-            self.hp = 175
+            self.hp = 525
             self.inventory = ["Blaided Glaive", "Leather armor"]
             
     def Open_inventory(self):
@@ -168,4 +178,3 @@ class Donjon:
 class Fight:
     def __init__(self):
         pass
-
