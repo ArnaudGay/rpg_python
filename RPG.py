@@ -151,6 +151,23 @@ class Interface:
     def __init__(self):
         pass
 
-class Save:
+class Map:
+    def __init__(self, size):
+        self.size = [[0 for row in range(10)]0 for col in range(10)]
+        for y in range(10):
+            for x in range(1O):
+                if y == 0:
+                    self.size[y][x] = -1
+                elif x == 0:
+                    self.size[y][x] = -1
+                elif y == (10 - 1):
+                    self.size[y][x] = -1
+                elif x == (10 - 1):
+                    self.size[y][x] = -1
+
+
+        
+
+class Fight:
     def __init__(self):
         pass
