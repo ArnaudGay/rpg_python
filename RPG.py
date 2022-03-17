@@ -1,5 +1,5 @@
 class Entity :
-    def __init__(self, attack, magic, defence, mr, hp):
+    def __init__(self, attack, magic, defence, mr, hp, level, experience):
         self.attack = attack
         self.magic = magic
         self.defence = defence
@@ -7,54 +7,63 @@ class Entity :
         self.hp = hp
         
 class PlayerRPG(Entity):
-    def __init__(self, player_type):
+    def __init__(self, player_type, level, experience, level_xp):
         if player_type == "Warrior":
-            Entity.__init__(self, 100, None, 80, 60, 630)
+            Entity.__init__(self, 100, None, 80, 60, 630, 1, 0)
             self.inventory = ["Sword", "Shield", "Plate armor"]
             
         if player_type == "Paladin":
-            Entity.__init__(self, 80, 80, 70, 80, 570)
+            Entity.__init__(self, 80, 80, 70, 80, 570, 1, 0)
             self.inventory = ["Hammer", "Plate armor", "Cape"]
         
         if player_type == "Hunter":
-            Entity.__init__(self, 105, None, 60, 60, 510)
+            Entity.__init__(self, 105, None, 60, 60, 510, 1, 0)
             self.inventory = ["Bow", "Arrow", "Mail armor"]
             
         if player_type == "Rogue":
-            Entity.__init__(self, 115, None, 40, 60, 450)
+            Entity.__init__(self, 115, None, 40, 60, 450, 1, 0)
             self.inventory = ["Double Dagger", "Leather armor"]
             
         if player_type == "Priest":
-            Entity.__init__(self, 5, 80, 20, 90, 420)
+            Entity.__init__(self, 5, 80, 20, 90, 420, 1, 0)
             self.inventory = ["Magic baton", "Cloth armor"]
         
         if player_type == "Death Knight":
-            Entity.__init__(self, 90, 60, 80, 60, 570)
+            Entity.__init__(self, 90, 60, 80, 60, 570, 1, 0)
             self.inventory = ["Enchanted Sword", "Plate armor"]
             
         if player_type == "Shaman":
-            Entity.__init__(self, 60, 80, 60, 70, 510)
+            Entity.__init__(self, 60, 80, 60, 70, 510, 1, 0)
             self.inventory = ["Sledgehammer", "Mail armor"]
         
         if player_type == "Mage":
-            Entity.__init__(self, 5, 100, 20, 85, 420)
+            Entity.__init__(self, 5, 100, 20, 85, 420, 1, 0)
             self.inventory = ["Magic baton", "Cloth armor"]
             
         if player_type == "Warlock":
-            Entity.__init__(self, 5, 105, 20, 75, 420)
+            Entity.__init__(self, 5, 105, 20, 75, 420, 1, 0)
             self.inventory = ["Possessed baton", "Cloth armor"]
             
         if player_type == "Monk":
-            Entity.__init__(self, 80, None, 60, 60, 540)
+            Entity.__init__(self, 80, None, 60, 60, 540, 1, 0)
             self.inventory = ["Baton", "Leather armor"]
             
         if player_type == "Druid":
-            Entity.__init__(self, 60, 80, 60, 70, 435)
+            Entity.__init__(self, 60, 80, 60, 70, 435, 1, 0)
             self.inventory = ["Magic baton", "Leather armor"]
             
         if player_type == "Demon Hunter":
-            Entity.__init__(self, 80, 20, 60, 60, 525)
+            Entity.__init__(self, 80, 20, 60, 60, 525, 1, 0)
             self.inventory = ["Blaided Glaive", "Leather armor"]
+        
+        self.level = level
+        self.experience = experience 
+        self.level_xp = 200 * level
+             
+          
+    def level_experience(self):
+        if self.experience == self.level_xp:
+            self.level += 1      
             
     def Open_inventory(self):
         print(self.inventory) 
@@ -92,7 +101,7 @@ class Potion:
         if self.effect == "Heal":
             player.hp += self.effect_amount
         elif self.effect == "Strength":
-            player.strength += self.effect_amount
+            player.attack += self.effect_amount
         elif self.effect == "Defence":
             player.defence += self.effect_amount
         
@@ -100,18 +109,25 @@ class Potion:
         if self.effect == "Heal":
             monster.hp -= self.effect_amount
         elif self.effect == "Strength":
-            monster.strength -= self.effect_amount
+            monster.attack -= self.effect_amount
         elif self.effect == "Defence":
             monster.defence -= self.effect_amount
             
-class Moves:
+class Move:
     def __init__(self):
         pass
-
+        
 class Chest:
     def __init__(self):
-        pass
+        self.chest = ["Class weapon", "Class armor", "Heal potion", "Force potion", "Resistance potion", "Weakness potion",]      
 
+    def Item_dropped(self):
+        if self.chest[0] in PlayerRPG.inventory :
+            PlayerRPG.attack += 40 + 2 * PlayerRPG.level
+        
+        if self.chest[1] in PlayerRPG.inventory:
+            PlayerRPG.defence += 10 + 1 * PlayerRPG.level
+        
 class Donjon:
     def __init__(self):
         pass
