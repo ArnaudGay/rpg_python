@@ -145,10 +145,10 @@ class Chest:
 
     def item_dropped(self):
         if self.chest[0] in PlayerRPG.inventory :
-            PlayerRPG.attack += 40 + 2 * PlayerRPG.level
+            PlayerRPG.attack += 40 + (2 * PlayerRPG.level)
         
         if self.chest[1] in PlayerRPG.inventory:
-            PlayerRPG.defence += 10 + 1 * PlayerRPG.level
+            PlayerRPG.defence += 10 + (1 * PlayerRPG.level)
         
 class Donjon:
     def __init__(self):
