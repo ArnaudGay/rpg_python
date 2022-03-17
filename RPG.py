@@ -67,7 +67,7 @@ class PlayerRPG(Entity):
             self.level += 1      
             self.experience = 0
             
-    def Open_inventory(self):
+    def open_inventory(self):
         for i in range(0, len(self.inventory),1):
             print(i,self.inventory[i]) 
 
@@ -103,26 +103,37 @@ class Item:
         pass
                          
 class Potion(Item):
-    def __init__(self, name, price, effect, effect_amount):
-        self.name = name
+    def __init__(self, name, price, effect, effect_amount, quantity):
+        super().__init__(name,price)
         self.effect = effect
         self.effect_amount = effect_amount
+        self.quantity = quantity
     
-    def Use(self, player):
+    def use(self, player):
         if self.effect == "Heal":
             player.hp += self.effect_amount
-        elif self.effect == "Strength":
+            self.quantity -= 1
+        elif self.effect == "Attack boost":
             player.attack += self.effect_amount
-        elif self.effect == "Defence":
+            self.quantity -= 1
+        elif self.effect == "Defence boost":
             player.defence += self.effect_amount
+            self.quantity -= 1
         
-    def Throw(self, monster):
+    def throw(self, monster):
         if self.effect == "Heal":
             monster.hp -= self.effect_amount
-        elif self.effect == "Strength":
+            self.quantity -= 1
+        elif self.effect == "Attack decrease":
             monster.attack -= self.effect_amount
-        elif self.effect == "Defence":
+            self.quantity -= 1
+        elif self.effect == "Defence decrease":
             monster.defence -= self.effect_amount
+            self.quantity -= 1
+        elif self.effect == "Weakness":
+            monster.attack -= self.effect_amount
+            monster.defence -= self.effect_amount
+            self.quantity -= 1
             
 class Move:
     def __init__(self):
@@ -130,9 +141,9 @@ class Move:
         
 class Chest:
     def __init__(self):
-        self.chest = ["Class weapon", "Class armor", "Heal potion", "Force potion", "Resistance potion", "Weakness potion",]      
+        self.chest = ["Class weapon", "Class armor", "Heal potion", "Strength potion", "Resistance potion", "Weakness potion",]      
 
-    def Item_dropped(self):
+    def item_dropped(self):
         if self.chest[0] in PlayerRPG.inventory :
             PlayerRPG.attack += 40 + 2 * PlayerRPG.level
         
@@ -155,7 +166,7 @@ class Map:
     def __init__(self, size):
         self.size = [[0 for row in range(10)]0 for col in range(10)]
         for y in range(10):
-            for x in range(1O):
+            for x in range(10):
                 if y == 0:
                     self.size[y][x] = -1
                 elif x == 0:
@@ -164,10 +175,3 @@ class Map:
                     self.size[y][x] = -1
                 elif x == (10 - 1):
                     self.size[y][x] = -1
-
-
-        
-
-class Fight:
-    def __init__(self):
-        pass
