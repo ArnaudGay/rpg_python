@@ -176,3 +176,4 @@ class Map:
                 elif x == (10 - 1):
                     self.size[y][x] = -1
 
+print("oui gzandre")
