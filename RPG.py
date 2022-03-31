@@ -1,4 +1,5 @@
-from random import randint
+from random import choice
+from re import L
 
 class Entity:
     def __init__(self, attack, defence, hp):
@@ -41,6 +42,24 @@ class PlayerRPG(Entity):
         choice = int(input())
         self.inventory[choice].use(self)
 
+    def choose_item_to_use(self):
+        print("which item do you want ?")
+        choice = int(input())
+        self.inventory[choice].use(self)
+    
+    def attack(self,attack,monster):
+        if attack == "armor_breaker" : 
+            self.attack += 12 + self.level
+            monster.defence -= 2 * (0,2 *  self.level)   
+
+        if attack == "cleaver" : 
+            self.attack += 20 + self.level  
+
+        if attack == "light_attack" : 
+            self.attack += 8 + self.level
+
+        if attack == "heavy_attack" :  
+            self.attack += 14 + self.level
 
 class Monster(Entity):
     def __init__(self, monster_type, monster):
@@ -55,6 +74,22 @@ class Monster(Entity):
         if monster_type == "Boss":
             Entity.__init__(self, 50, 18, 500, monster)
 
+
+    def attack(self, attack) : 
+
+
+        L = ["light_attack","light_attack","light_attack","heavy_attack"] 
+        attack = choice(L)
+
+        if attack == "light_attack" :
+            self.attack += 6 + self.level
+            
+            print(attack)
+
+        if attack == "heavy_attack" :
+            self.attack += 12 + self.level
+
+            print(attack)
 
 class Item:
     def __init__(self, name, level):
@@ -127,24 +162,21 @@ class Donjon:
     def __init__(self):
         pass
 
-
-class Fight(PlayerRPG) :
-    def __init__(self,atk,Def,pv,player,monster): 
-        super().__init__(atk,Def,pv,player,monster)
-    def Damage(self,amount):
-        amount -= self.defence
-        self.pv -= amount
-        PlayerRPG
-        Monster 
-
+def fight(player,monster):
+    while player.hp > 0 :
+        print("armor breaker", "cleaver", "light attack", "heavy attack")
+        choice = input("Which attack do you want ?")
+        player.attack(choice,monster)
+        monster.hp -= player.attack * monster.defence 
+    while monster.hp > 0 :
+        player.hp -= monster.attack * player.defence 
 
 class Interface:
     def __init__(self):
         pass
 
-
 class Map:
-    def __init__(self):
+    def __init__(self, place):
         self.size = [[0 for row in range(10)] for col in range(10)]
         for y in range(10):
             for x in range(10):
@@ -156,18 +188,59 @@ class Map:
                     self.size[y][x] = -1
                 elif x == (10 - 1):
                     self.size[y][x] = -1
-
-    def forest_map():
-        pass
-
-    def clearing_map():
-        pass
-
-    def hall_donjon():
-        pass
-
-    def throne_hall():
-        pass
-
-    def rooftop_donjon():
-        pass
+        self.map = place
+        if place == 1:
+            fic = open("forest_map.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 2:
+            fic = open("clearing_map.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 3:
+            fic = open("hall_donjon.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 4:
+            fic = open("throne_hall.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 5:
+            fic = open("rooftop_donjon.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
