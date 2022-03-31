@@ -23,7 +23,7 @@ class PlayerRPG(Entity):
             self.inventory = ["Double Dagger", "Leather armor"]
         if player_type == "Priest":
             Entity.__init__(self, player, 5, 80, 20, 90, 420)
-            self.inventory = ["Magic baton", "Cloth armor"]
+            self.inventory = ["Magic baton", "Cloth armor"      ]
         if player_type == "Death Knight":
             Entity.__init__(self, player, 90, 60, 80, 60, 570)
             self.inventory = ["Enchanted Sword", "Plate armor"]
@@ -81,7 +81,7 @@ class Item:
     def __init__(self, item_name, price):
         self.item_name = item_name
         self.price = price
-    def use(self, item_name, name):
+    def use(self, item_name, player):
         if item_name == "Class weapon":
             PlayerRPG.attack = 40 + (2 * PlayerRPG.level)
         if item_name == "Class armor":
@@ -138,7 +138,7 @@ class Fight(PlayerRPG) :
     def __init__(self,atk,Def,pv,player,monster): 
         super().__init__(atk,Def,pv,player,monster)
     def Damage(self,amount):
-        amount -= self.Def
+        amount -= self.defence
         self.pv -= amount
         PlayerRPG
         Monster 
