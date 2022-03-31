@@ -81,7 +81,7 @@ class Item:
     def __init__(self, item_name, price):
         self.item_name = item_name
         self.price = price
-    def use(self, item_name, name):
+    def use(self, item_name, player):
         if item_name == "Class weapon":
             PlayerRPG.attack = 40 + (2 * PlayerRPG.level)
         if item_name == "Class armor":
@@ -133,16 +133,8 @@ class Chest:
 class Donjon:
     def __init__(self):
         pass
-
-class Fight(PlayerRPG) :
-    def __init__(self,atk,Def,pv,player,monster): 
-        super().__init__(atk,Def,pv,player,monster)
-    def Damage(self,amount):
-        amount -= self.Def
-        self.pv -= amount
-        PlayerRPG
-        Monster 
-
+        
+def Fight(player,monster):
 
 
 class Interface:
