@@ -153,7 +153,7 @@ class Interface:
 
 
 class Map:
-    def __init__(self):
+    def __init__(self, place):
         self.size = [[0 for row in range(10)] for col in range(10)]
         for y in range(10):
             for x in range(10):
@@ -165,18 +165,59 @@ class Map:
                     self.size[y][x] = -1
                 elif x == (10 - 1):
                     self.size[y][x] = -1
-
-    def forest_map():
-        pass
-
-    def clearing_map():
-        pass
-
-    def hall_donjon():
-        pass
-
-    def throne_hall():
-        pass
-
-    def rooftop_donjon():
-        pass
+        self.map = place
+        if place == 1:
+            fic = open("forest_map.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 2:
+            fic = open("clearing_map.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 3:
+            fic = open("hall_donjon.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 4:
+            fic = open("throne_hall.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
+        elif place == 5:
+            fic = open("rooftop_donjon.txt", "r")
+            terr = []
+            for ligne in fic:
+                terr_bis = []
+                for item in ligne:
+                    if item != '\n':
+                        terr_bis.append(int(item))
+                terr.append(terr_bis)
+            fic.close()
+            self.size = terr
