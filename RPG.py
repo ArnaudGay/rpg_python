@@ -135,7 +135,11 @@ class Donjon:
         pass
         
 def Fight(player,monster):
+    pass 
 
+def Damage(self,amount) :
+    amount -= self.defence 
+    self.hp -= amount 
 
 class Interface:
     def __init__(self):
