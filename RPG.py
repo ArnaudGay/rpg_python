@@ -95,29 +95,21 @@ class Potion(Item):
         self.effect_amount = effect_amount
         self.quantity = quantity
 
-    def use(self, name):
+    def use(self, player):
         if self.effect == "Heal":
-            name.hp += self.effect_amount
-            self.quantity -= 1
-        elif self.effect == "Attack boost":
-            name.attack += self.effect_amount
-            self.quantity -= 1
-        elif self.effect == "Defence boost":
-            name.defence += self.effect_amount
+            player.hp += self.effect_amount
+        elif self.effect == "Strength":
+            player.attack += self.effect_amount
+        elif self.effect == "Defence":
+            player.defence += self.effect_amount
             self.quantity -= 1
 
     def throw(self, monster):
         if self.effect == "Heal":
             monster.hp -= self.effect_amount
-            self.quantity -= 1
-        elif self.effect == "Attack decrease":
+        elif self.effect == "Strength":
             monster.attack -= self.effect_amount
-            self.quantity -= 1
-        elif self.effect == "Defence decrease":
-            monster.defence -= self.effect_amount
-            self.quantity -= 1
-        elif self.effect == "Weakness":
-            monster.attack -= self.effect_amount
+        elif self.effect == "Defence":
             monster.defence -= self.effect_amount
             self.quantity -= 1
 
@@ -142,10 +134,15 @@ class Donjon:
     def __init__(self):
         pass
 
+class Fight(PlayerRPG) :
+    def __init__(self,atk,Def,pv,player,monster): 
+        super().__init__(atk,Def,pv,player,monster)
+    def Damage(self,amount):
+        amount -= self.Def
+        self.pv -= amount
+        PlayerRPG
+        Monster 
 
-class Fight:
-    def __init__(self):
-        pass
 
 
 class Interface:
