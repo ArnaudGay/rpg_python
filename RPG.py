@@ -61,7 +61,7 @@ class PlayerRPG(Entity):
         self.experience = 0 
         self.level_xp = 200 * self.level
              
-          
+
     def level_experience(self):
         if self.experience == self.level_xp:
             self.level += 1      
@@ -144,19 +144,14 @@ class Donjon:
         pass
 
 class Fight(PlayerRPG) :
-    def __init__(self,atk,player,monster):
-        self.attack = atk 
-        self.player = player 
-        self.monster = monster 
-        self.test = test
-    
-    def Attack(self):
-        return self.atk
-
+    def __init__(self,atk,Def,pv,player,monster): 
+        super().__init__(atk,Def,pv,player,monster)
     def Damage(self,amount):
-        self.pv -= (amount - self.Def)
+        amount -= self.Def
+        self.pv -= amount
+        PlayerRPG
+        Monster 
 
-        
 
 class Interface:
     def __init__(self):
