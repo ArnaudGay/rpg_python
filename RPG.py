@@ -58,6 +58,10 @@ class PlayerRPG(Entity):
         for i in range(0, len(self.inventory), 1):
             print(i, self.inventory[i])
 
+    def choose_item_to_use(self):
+        print("which item do you want ?")
+        choice = int(input())
+        self.inventory[choice].use(self)
 
 class Monster(Entity):
     def __init__(self, monster_type, monster):
@@ -134,17 +138,18 @@ class Donjon:
     def __init__(self):
         pass
         
-def Fight(player,monster):
+def fight(player,monster):
     pass 
+    player attack 
+    monster attack 
 
-def Damage(self,amount) :
-    amount -= self.defence 
-    self.hp -= amount 
+def damage(self,amount) :
+    self.hp -= (amount - self.defence)
+
 
 class Interface:
     def __init__(self):
         pass
-
 
 class Map:
     def __init__(self):
