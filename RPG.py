@@ -1,5 +1,5 @@
 from random import choice
-from re import L
+
 
 class Entity:
     def __init__(self, attack, defence, hp):
@@ -36,7 +36,7 @@ class PlayerRPG(Entity):
     def open_inventory(self):
         for i in range(0, len(self.inventory), 1):
             print(i, self.inventory[i])
-            
+
     def choose_item(self):
         print("What object would you like to use ?")
         choice = int(input())
@@ -46,20 +46,21 @@ class PlayerRPG(Entity):
         print("which item do you want ?")
         choice = int(input())
         self.inventory[choice].use(self)
-    
-    def attack(self,attack,monster):
-        if attack == "armor_breaker" : 
+
+    def attack(self, attack, monster):
+        if attack == "armor_breaker":
             self.attack += 12 + self.level
-            monster.defence -= 2 * (0,2 *  self.level)   
+            monster.defence -= 2 * (0.2 * self.level)
 
-        if attack == "cleaver" : 
-            self.attack += 20 + self.level  
+        if attack == "cleaver":
+            self.attack += 20 + self.level
 
-        if attack == "light_attack" : 
+        if attack == "light_attack":
             self.attack += 8 + self.level
 
-        if attack == "heavy_attack" :  
+        if attack == "heavy_attack":
             self.attack += 14 + self.level
+
 
 class Monster(Entity):
     def __init__(self, monster_type, monster):
@@ -74,28 +75,26 @@ class Monster(Entity):
         if monster_type == "Boss":
             Entity.__init__(self, 50, 18, 500, monster)
 
+    def attack(self, attack):
 
-    def attack(self, attack) : 
-
-
-        L = ["light_attack","light_attack","light_attack","heavy_attack"] 
+        L = ["light_attack", "light_attack", "light_attack", "heavy_attack"]
         attack = choice(L)
 
-        if attack == "light_attack" :
+        if attack == "light_attack":
             self.attack += 6 + self.level
-            
             print(attack)
 
-        if attack == "heavy_attack" :
+        if attack == "heavy_attack":
             self.attack += 12 + self.level
 
             print(attack)
+
 
 class Item:
     def __init__(self, name, level):
         self.name = name
         self.level = level
-                
+
     def use(self, name, player):
         pass
 
@@ -129,51 +128,53 @@ class Chest:
     def item_dropped(self, player):
         if self.chest == "Two-handed sword":
             player.attack = 10 + (2 * PlayerRPG.level)
-            
+
         if self.chest == "Daggers":
             player.attack = 12 + (2 * PlayerRPG.level)
-            
+
         if self.chest == "Stave":
             player.attack = 10 + (2 * PlayerRPG.level)
-            
+
         if self.chest == "Bow":
-            player.attack = 12 + (2 * PlayerRPG.level) 
-                
+            player.attack = 12 + (2 * PlayerRPG.level)
+
         if self.chest == "Leather armor":
             player.defence = 4 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-            
+
         if self.chest == "Mail armor":
             player.defence = 6 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-            
+
         if self.chest == "Plate armor":
             player.defence = 8 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-            
+
         if self.chest == "Heal potion":
             player.hp = 200 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-            
+
         if self.chest == "Strenght potion":
             player.attack = 5 + (PlayerRPG.level * PlayerRPG.adaptative_attack)
-            
+
         if self.chest == "Reistance potion":
             player.defence = 2 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-            
+
 
 class Donjon:
     def __init__(self):
         pass
 
-def fight(player,monster):
-    while player.hp > 0 :
-        print("armor breaker", "cleaver", "light attack", "heavy attack")
-        choice = input("Which attack do you want ?")
-        player.attack(choice,monster)
-        monster.hp -= player.attack * monster.defence 
-    while monster.hp > 0 :
-        player.hp -= monster.attack * player.defence 
+    def fight(player, monster):
+        while player.hp > 0:
+            print("armor breaker", "cleaver", "light attack", "heavy attack")
+            choice = input("Which attack do you want ?")
+            player.attack(choice, monster)
+            monster.hp -= player.attack * monster.defence
+        while monster.hp > 0:
+            player.hp -= monster.attack * player.defence
+
 
 class Interface:
     def __init__(self):
         pass
+
 
 class Map:
     def __init__(self, place):
