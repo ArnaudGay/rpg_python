@@ -2,8 +2,8 @@ from random import choice
 
 
 class Entity:
-    def __init__(self, attack, defence, hp):
-        self.attack = attack
+    def __init__(self, dps, defence, hp):
+        self.dps = dps
         self.defence = defence
         self.hp = hp
 
@@ -23,8 +23,6 @@ class PlayerRPG(Entity):
             Entity.__init__(self, 80, 60, 580, player)
             self.inventory = ["Stave", "Leather armor"]
         self.level = 1
-        self.adaptative_attack = 2
-        self.adaptative_defence = 1
         self.experience = 0
         self.level_xp = 200 * self.level
 
@@ -32,6 +30,9 @@ class PlayerRPG(Entity):
         if self.experience == self.level_xp:
             self.level += 1
             self.experience = 0
+            self.dps += 5 * self.level
+            self.defence += 5 * self.level
+            self.hp += 20 * self.level
 
     def open_inventory(self):
         for i in range(0, len(self.inventory), 1):
@@ -39,11 +40,6 @@ class PlayerRPG(Entity):
 
     def choose_item(self):
         print("What object would you like to use ?")
-        choice = int(input())
-        self.inventory[choice].use(self)
-
-    def choose_item_to_use(self):
-        print("which item do you want ?")
         choice = int(input())
         self.inventory[choice].use(self)
 
@@ -81,11 +77,11 @@ class Monster(Entity):
         attack = choice(L)
 
         if attack == "light_attack":
-            self.attack += 6 + self.level
+            self.dps += 50 + self.level
             print(attack)
 
         if attack == "heavy_attack":
-            self.attack += 12 + self.level
+            self.dps += 80 + self.level
 
             print(attack)
 
@@ -116,45 +112,27 @@ class Potion(Item):
             self.quantity -= 1
 
 
-class Move:
-    def __init__(self):
-        pass
-
-
-class Chest:
-    def __init__(self, attack_stat, defence_stat, hp_stat):
-        self.chest = ["Two-handed sword", "Daggers", "Stave", "Bow", "Leather armor", "Mail armor", "Plate armor", "Heal potion", "Strength potion", "Resistance potion"]
+class Chest(PlayerRPG):
+    def __init__(self, effect_amount, level):
+        super().__init__(level)
+        self.chest = ["Weapon", "Armor", "Heal potion", "Strength potion",
+                      "Resistance potion"]
 
     def item_dropped(self, player):
-        if self.chest == "Two-handed sword":
-            player.attack = 10 + (2 * PlayerRPG.level)
+        if self.chest == "Weapon":
+            player.attack += 5 * self.level
 
-        if self.chest == "Daggers":
-            player.attack = 12 + (2 * PlayerRPG.level)
-
-        if self.chest == "Stave":
-            player.attack = 10 + (2 * PlayerRPG.level)
-
-        if self.chest == "Bow":
-            player.attack = 12 + (2 * PlayerRPG.level)
-
-        if self.chest == "Leather armor":
-            player.defence = 4 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-
-        if self.chest == "Mail armor":
-            player.defence = 6 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
-
-        if self.chest == "Plate armor":
-            player.defence = 8 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
+        if self.chest == "Armor":
+            player.defence += 4 * self.level
 
         if self.chest == "Heal potion":
-            player.hp = 200 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
+            self.effect_amount = 250 * self.level
 
         if self.chest == "Strenght potion":
-            player.attack = 5 + (PlayerRPG.level * PlayerRPG.adaptative_attack)
+            self.effect_amount = 10 * self.level
 
         if self.chest == "Reistance potion":
-            player.defence = 2 + (PlayerRPG.level * PlayerRPG.adaptative_defence)
+            self.effect_amount = 5 * self.level
 
 
 class Donjon:
@@ -163,12 +141,12 @@ class Donjon:
 
     def fight(player, monster):
         while player.hp > 0:
-            print("armor breaker", "cleaver", "light attack", "heavy attack")
+            print("Armor breaker", "Cleaver", "Light attack", "Heavy attack")
             choice = input("Which attack do you want ?")
             player.attack(choice, monster)
-            monster.hp -= player.attack * monster.defence
+            monster.hp -= player.attack - monster.defence
         while monster.hp > 0:
-            player.hp -= monster.attack * player.defence
+            player.hp -= monster.attack - player.defence
 
 
 class Interface:
@@ -245,3 +223,40 @@ class Map:
                 terr.append(terr_bis)
             fic.close()
             self.size = terr
+
+    def move(self, step):
+        step = step
+        for i in range(len(self.size)):
+            for j in range(1, 10):
+                if step == "right_key":
+                    self.size[i][j] == self.size[i][j+1]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i][j-1]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i][j-1]
+                    if self.size[j] == 4:
+                        self.size[i][j] -= self.size[i][j-1]
+                if step == "left_key":
+                    self.size[i][j] == self.size[i][j-1]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i][j+1]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i][j+1]
+                    if self.size[j] == 4:
+                        self.size[i][j] -= self.size[i][j+1]
+                if step == "down_key":
+                    self.size[i][j] == self.size[i-1][j]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i+1][j]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i+1][j]
+                    if self.size[j] == 4:
+                        self.size[i][j] -= self.size[i+1][j]
+                if step == "up_key":
+                    self.size[i][j] == self.size[i+1][j]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i-1][j]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i-1][j]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i-1][j]
