@@ -1,3 +1,5 @@
+from ast import In
+from code import interact
 import tkinter as tk
 
 
@@ -149,11 +151,6 @@ class Donjon:
             player.hp -= monster.attack - player.defence
 
 
-class Interface:
-    def __init__(self):
-        pass
-
-
 class Map:
     def __init__(self, place):
         self.size = [[0 for row in range(10)] for col in range(10)]
@@ -169,7 +166,7 @@ class Map:
                     self.size[y][x] = -1
         self.map = place
         if place == 1:
-            fic = open("forest_map.txt", "r")
+            fic = open("Maps/1 - forest_map.txt", "r")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -180,7 +177,7 @@ class Map:
             fic.close()
             self.size = terr
         elif place == 2:
-            fic = open("clearing_map.txt", "r")
+            fic = open("Maps/2 - clearing_map.txt", "r")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -191,7 +188,7 @@ class Map:
             fic.close()
             self.size = terr
         elif place == 3:
-            fic = open("hall_donjon.txt", "r")
+            fic = open("Maps/3 - hall_donjon.txt", "r")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -202,7 +199,7 @@ class Map:
             fic.close()
             self.size = terr
         elif place == 4:
-            fic = open("throne_hall.txt", "r")
+            fic = open("Maps/4 - throne_hall.txt", "r")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -213,7 +210,7 @@ class Map:
             fic.close()
             self.size = terr
         elif place == 5:
-            fic = open("rooftop_donjon.txt", "r")
+            fic = open("Maps/5 - rooftop_donjon.txt", "r")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -223,54 +220,6 @@ class Map:
                 terr.append(terr_bis)
             fic.close()
             self.size = terr
-
-
-map = Map(5)
-
-root = tk.Tk()
-root.title("RPG ATA")
-root.attributes('-fullscreen', True)
-root.bind('<Escape>', lambda e: root.destroy())
-root.configure(bg="black")
-text1 = tk.Label(root, text="RPG ATA", font=('arial', '48'), anchor='center')
-text2 = tk.Label(root, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
-button1 = tk.Button(root, text="Jouer", command=root.destroy)
-text1.pack()
-text2.pack()
-button1.pack()
-root.mainloop()
-
-window2 = tk.Tk()
-window2.title("RPG ATA")
-window2.attributes('-fullscreen', True)
-window2.bind('<Escape>', lambda e: window2.destroy())
-window2.configure(bg="black")
-canvas = tk.Canvas(window2, width=800, height=800)
-button3 = tk.Button(window2, text="Quitter", command=window2.destroy)
-canvas.pack()
-button3.pack()
-canvas.bind_all('<Right>', Droite)
-canvas.bind_all('<Left>', Gauche)
-canvas.bind_all('<Down>', Bas)
-canvas.bind_all('<Up>', Haut)
-
-
-def Draw():
-    for y in range(10):
-        for x in range(10):
-            if map.size[y][x] == 1:
-                canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='grey', fill='grey')
-            elif map.size[y][x] == 2:
-                canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='blue', fill='blue')
-            elif map.size[y][x] == 3:
-                canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='red', fill='red')
-            elif map.size[y][x] == 4:
-                canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='orange', fill='orange')
-
-
-Draw()
-
-window2.mainloop()
 
     def move(self, step):
         step = step
@@ -308,3 +257,47 @@ window2.mainloop()
                         self.size[i][j] -= self.size[i-1][j]
                     if self.size[j] == 3:
                         self.size[i][j] -= self.size[i-1][j]
+
+
+class Interface:
+    def __init__(self):
+        root = tk.Tk()
+        root.title("RPG ATA")
+        root.attributes('-fullscreen', True)
+        root.bind('<Escape>', lambda e: root.destroy())
+        root.configure(bg="black")
+        text1 = tk.Label(root, text="RPG ATA", font=('arial', '48'), anchor='center')
+        text2 = tk.Label(root, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
+        button1 = tk.Button(root, text="Jouer", command=root.destroy)
+        text1.pack()
+        text2.pack()
+        button1.pack()
+        root.mainloop()
+
+        def Draw():
+            for y in range(10):
+                for x in range(10):
+                    if map.size[y][x] == 1:
+                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='grey', fill='grey')
+                    elif map.size[y][x] == 2:
+                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='blue', fill='blue')
+                    elif map.size[y][x] == 3:
+                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='red', fill='red')
+                    elif map.size[y][x] == 4:
+                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='orange', fill='orange')
+
+        window2 = tk.Tk()
+        window2.title("RPG ATA")
+        window2.attributes('-fullscreen', True)
+        window2.bind('<Escape>', lambda e: window2.destroy())
+        window2.configure(bg="black")
+        canvas = tk.Canvas(window2, width=800, height=800)
+        button3 = tk.Button(window2, text="Quitter", command=window2.destroy)
+        canvas.pack()
+        button3.pack()
+        Draw()
+        window2.mainloop()
+
+
+map = Map(1)
+interface = Interface()
