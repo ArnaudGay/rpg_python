@@ -303,6 +303,8 @@ class Interface:
                         canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='red', fill='red')
                     elif map.size[y][x] == 4:
                         canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='orange', fill='orange')
+                    elif map.size[y][x] == 5:
+                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='purple', fill='purple')
 
         window2 = tk.Tk()
         window2.title("RPG ATA")
@@ -317,5 +319,5 @@ class Interface:
         window2.mainloop()
 
 
-map = Map(1)
+map = Map(5)
 interface = Interface()
