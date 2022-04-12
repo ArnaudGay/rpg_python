@@ -1,6 +1,5 @@
-from ast import In
-from code import interact
 import tkinter as tk
+from random import choice
 
 
 class Entity:
@@ -261,18 +260,37 @@ class Map:
 
 class Interface:
     def __init__(self):
-        root = tk.Tk()
-        root.title("RPG ATA")
-        root.attributes('-fullscreen', True)
-        root.bind('<Escape>', lambda e: root.destroy())
-        root.configure(bg="black")
-        text1 = tk.Label(root, text="RPG ATA", font=('arial', '48'), anchor='center')
-        text2 = tk.Label(root, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
-        button1 = tk.Button(root, text="Jouer", command=root.destroy)
+        menu = tk.Tk()
+        menu.title("RPG ATA")
+        menu.attributes('-fullscreen', True)
+        menu.bind('<Escape>', lambda e: menu.destroy())
+        menu.configure(bg="black")
+        text1 = tk.Label(menu, text="RPG ATA", font=('arial', '48'), anchor='center')
+        text2 = tk.Label(menu, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
+        button1 = tk.Button(menu, text="Jouer", font=('arial', '24'), command=menu.destroy)
         text1.pack()
         text2.pack()
         button1.pack()
-        root.mainloop()
+        menu.mainloop()
+
+        story = tk.Tk()
+        story.title("RPG ATA")
+        story.attributes('-fullscreen', True)
+        story.bind('<Escape>', lambda e: story.destroy())
+        story.configure(bg="black")
+        text1 = tk.Label(story, text="Vous avez réussi à traverser cette forêt tourmentée,", bg='black', fg='white', font=('arial','36'))
+        text2 = tk.Label(story, text="et vous vous retrouvez dans une magnifique clairière ensoleillée.", bg='black', fg='white', font=('arial','36'))
+        text3 = tk.Label(story, text="Vous ne ressentez aucune adversité, vous avancé donc tranquillement.", bg='black', fg='white', font=('arial','36'))
+        text4 = tk.Label(story, text="Au loin vous apercevez un donjon,", bg='black', fg='white', font=('arial','36'))
+        text5 = tk.Label(story, text="vous décidez donc de vous y rendre, intrigué de savoir ce qu'il renferme.", bg='black', fg='white', font=('arial','36'))
+        button = tk.Button(story, text='Suivant', font=('arial', '24'), command=story.destroy)
+        text1.pack()
+        text2.pack()
+        text3.pack()
+        text4.pack()
+        text5.pack()
+        button.pack(side='right')
+        story.mainloop()
 
         def Draw():
             for y in range(10):
@@ -292,7 +310,7 @@ class Interface:
         window2.bind('<Escape>', lambda e: window2.destroy())
         window2.configure(bg="black")
         canvas = tk.Canvas(window2, width=800, height=800)
-        button3 = tk.Button(window2, text="Quitter", command=window2.destroy)
+        button3 = tk.Button(window2, text="Quitter", font=('arial', '24'), command=window2.destroy)
         canvas.pack()
         button3.pack()
         Draw()
