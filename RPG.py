@@ -1,6 +1,6 @@
+from ast import In
+from code import interact
 import tkinter as tk
-from random import choice
-from PIL import Image, ImageTk
 
 
 class Entity:
@@ -225,15 +225,39 @@ class Map:
         step = step
         for i in range(len(self.size)):
             for j in range(1, 10):
-                if self.size[i][j] == 7:
-                    if step == "right_key" and self.size[i][j+1] == 0:
-                        self.size[i][j] == self.size[i][j+1]
-                    if step == "left_key" and self.size[i][j-1] == 0:
-                        self.size[i][j] == self.size[i][j-1]
-                    if step == "down_key" and self.size[i-1][j] == 0:
-                        self.size[i][j] == self.size[i-1][j]
-                    if step == "up_key" and self.size[i+1][j] == 0:
-                        self.size[i][j] == self.size[i+1][j]
+                if step == "right_key":
+                    self.size[i][j] == self.size[i][j+1]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i][j-1]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i][j-1]
+                    if self.size[j] == 4:
+                        self.size[i][j] -= self.size[i][j-1]
+                if step == "left_key":
+                    self.size[i][j] == self.size[i][j-1]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i][j+1]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i][j+1]
+                    if self.size[j] == 4:
+                        self.size[i][j] -= self.size[i][j+1]
+                if step == "down_key":
+                    self.size[i][j] == self.size[i-1][j]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i+1][j]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i+1][j]
+                    if self.size[j] == 4:
+                        self.size[i][j] -= self.size[i+1][j]
+                if step == "up_key":
+                    self.size[i][j] == self.size[i+1][j]
+                    if self.size[j] == 2:
+                        self.size[i][j] -= self.size[i-1][j]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i-1][j]
+                    if self.size[j] == 3:
+                        self.size[i][j] -= self.size[i-1][j]
+
 
 
 class Interface:
