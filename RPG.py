@@ -1,6 +1,6 @@
-from ast import In
-from code import interact
 import tkinter as tk
+from random import choice
+from PIL import Image, ImageTk
 
 
 class Entity:
@@ -225,54 +225,49 @@ class Map:
         step = step
         for i in range(len(self.size)):
             for j in range(1, 10):
-                if step == "right_key":
-                    self.size[i][j] == self.size[i][j+1]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i][j-1]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i][j-1]
-                    if self.size[j] == 4:
-                        self.size[i][j] -= self.size[i][j-1]
-                if step == "left_key":
-                    self.size[i][j] == self.size[i][j-1]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i][j+1]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i][j+1]
-                    if self.size[j] == 4:
-                        self.size[i][j] -= self.size[i][j+1]
-                if step == "down_key":
-                    self.size[i][j] == self.size[i-1][j]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i+1][j]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i+1][j]
-                    if self.size[j] == 4:
-                        self.size[i][j] -= self.size[i+1][j]
-                if step == "up_key":
-                    self.size[i][j] == self.size[i+1][j]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i-1][j]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i-1][j]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i-1][j]
-
+                if self.size[i][j] == 7:
+                    if step == "right_key" and self.size[i][j+1] == 0:
+                        self.size[i][j] == self.size[i][j+1]
+                    if step == "left_key" and self.size[i][j-1] == 0:
+                        self.size[i][j] == self.size[i][j-1]
+                    if step == "down_key" and self.size[i-1][j] == 0:
+                        self.size[i][j] == self.size[i-1][j]
+                    if step == "up_key" and self.size[i+1][j] == 0:
+                        self.size[i][j] == self.size[i+1][j]
 
 class Interface:
     def __init__(self):
-        root = tk.Tk()
-        root.title("RPG ATA")
-        root.attributes('-fullscreen', True)
-        root.bind('<Escape>', lambda e: root.destroy())
-        root.configure(bg="black")
-        text1 = tk.Label(root, text="RPG ATA", font=('arial', '48'), anchor='center')
-        text2 = tk.Label(root, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
-        button1 = tk.Button(root, text="Jouer", command=root.destroy)
+        menu = tk.Tk()
+        menu.title("RPG ATA")
+        menu.attributes('-fullscreen', True)
+        menu.bind('<Escape>', lambda e: menu.destroy())
+        menu.configure(bg="black")
+        text1 = tk.Label(menu, text="RPG ATA", font=('arial', '48'), anchor='center')
+        text2 = tk.Label(menu, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
+        button1 = tk.Button(menu, text="Jouer", font=('arial', '24'), command=menu.destroy)
         text1.pack()
         text2.pack()
         button1.pack()
-        root.mainloop()
+        menu.mainloop()
+
+        story1 = tk.Tk()
+        story1.title("RPG ATA")
+        story1.attributes('-fullscreen', True)
+        story1.bind('<Escape>', lambda e: story1.destroy())
+        story1.configure(bg="black")
+        text1 = tk.Label(story1, text="Vous avez réussi à traverser cette forêt tourmentée,", bg='black', fg='white', font=('arial','36'))
+        text2 = tk.Label(story1, text="et vous vous retrouvez dans une magnifique clairière ensoleillée.", bg='black', fg='white', font=('arial','36'))
+        text3 = tk.Label(story1, text="Vous ne ressentez aucune adversité, vous avancé donc tranquillement.", bg='black', fg='white', font=('arial','36'))
+        text4 = tk.Label(story1, text="Au loin vous apercevez un donjon,", bg='black', fg='white', font=('arial','36'))
+        text5 = tk.Label(story1, text="vous décidez donc de vous y rendre, intrigué de savoir ce qu'il renferme.", bg='black', fg='white', font=('arial','36'))
+        button = tk.Button(story1, text='Suivant', font=('arial', '24'), command=story1.destroy)
+        text1.pack()
+        text2.pack()
+        text3.pack()
+        text4.pack()
+        text5.pack()
+        button.pack(side='right')
+        story1.mainloop()
 
         def Draw():
             for y in range(10):
@@ -294,12 +289,16 @@ class Interface:
         window2.bind('<Escape>', lambda e: window2.destroy())
         window2.configure(bg="black")
         canvas = tk.Canvas(window2, width=800, height=800)
-        button3 = tk.Button(window2, text="Quitter", command=window2.destroy)
+        button3 = tk.Button(window2, text="Quitter", font=('arial', '24'), command=window2.destroy)
         canvas.pack()
         button3.pack()
         Draw()
+        canvas.bind_all('<Right>', Map.move(self, 'right_key'))
+        canvas.bind_all('<Left>', Map.move(self, 'left_key'))
+        canvas.bind_all('<Down>', Map.move(self, 'down_key'))
+        canvas.bind_all('<Up>', Map.move(self, 'up_key'))
         window2.mainloop()
 
 
-map = Map(5)
+map = Map(1)
 interface = Interface()
