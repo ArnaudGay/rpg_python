@@ -1,7 +1,6 @@
-from ast import In
-from code import interact
 import tkinter as tk
-
+from PIL import ImageTk, Image
+from random import choice
 
 class Entity:
     def __init__(self, dps, defence, hp):
