@@ -79,11 +79,11 @@ class Monster(Entity):
         attack = choice(L)
 
         if attack == "light_attack":
-            self.dps += 50 + self.level
+            self.dps += 5 + self.level
             print(attack)
 
         if attack == "heavy_attack":
-            self.dps += 80 + self.level
+            self.dps += 10 + self.level
 
             print(attack)
 
@@ -235,70 +235,53 @@ class Map:
                     if step == "up_key" and self.size[i+1][j] == 0:
                         self.size[i][j] == self.size[i+1][j]
 
+
 class Interface:
     def __init__(self):
-        menu = tk.Tk()
-        menu.title("RPG ATA")
-        menu.attributes('-fullscreen', True)
-        menu.bind('<Escape>', lambda e: menu.destroy())
-        menu.configure(bg="black")
-        text1 = tk.Label(menu, text="RPG ATA", font=('arial', '48'), anchor='center')
-        text2 = tk.Label(menu, text="Cliquez sur jouer pour débuté l'aventure!", font=('arial', '24'))
-        button1 = tk.Button(menu, text="Jouer", font=('arial', '24'), command=menu.destroy)
-        text1.pack()
-        text2.pack()
-        button1.pack()
-        menu.mainloop()
-
         story1 = tk.Tk()
         story1.title("RPG ATA")
         story1.attributes('-fullscreen', True)
         story1.bind('<Escape>', lambda e: story1.destroy())
         story1.configure(bg="black")
-        text1 = tk.Label(story1, text="Vous avez réussi à traverser cette forêt tourmentée,", bg='black', fg='white', font=('arial','36'))
-        text2 = tk.Label(story1, text="et vous vous retrouvez dans une magnifique clairière ensoleillée.", bg='black', fg='white', font=('arial','36'))
-        text3 = tk.Label(story1, text="Vous ne ressentez aucune adversité, vous avancé donc tranquillement.", bg='black', fg='white', font=('arial','36'))
-        text4 = tk.Label(story1, text="Au loin vous apercevez un donjon,", bg='black', fg='white', font=('arial','36'))
-        text5 = tk.Label(story1, text="vous décidez donc de vous y rendre, intrigué de savoir ce qu'il renferme.", bg='black', fg='white', font=('arial','36'))
+        story1_image = ImageTk.PhotoImage(Image.open("Images/Story1.png"))
+        story1_label = tk.Label(bd=0, image=story1_image)
+        story1_label.pack()
         button = tk.Button(story1, text='Suivant', font=('arial', '24'), command=story1.destroy)
-        text1.pack()
-        text2.pack()
-        text3.pack()
-        text4.pack()
-        text5.pack()
-        button.pack(side='right')
+        button.pack(side='right', padx=50)
         story1.mainloop()
+    
+        story2 = tk.Tk()
+        story2.attributes('-fullscreen', True)
+        story2.bind('<Escape>', lambda e: story2.destroy())
+        story2.configure(bg="black")
+        story2_image = ImageTk.PhotoImage(Image.open("Images/Story2.png"))
+        story2_label = tk.Label(bd=0, image=story2_image)
+        story2_label.pack()
+        button = tk.Button(story2, text='Suivant', font=('arial', '24'), command=story2.destroy)
+        button.pack(side='right', padx=50)
+        story2.mainloop()
 
-        def Draw():
-            for y in range(10):
-                for x in range(10):
-                    if map.size[y][x] == 1:
-                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='grey', fill='grey')
-                    elif map.size[y][x] == 2:
-                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='blue', fill='blue')
-                    elif map.size[y][x] == 3:
-                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='red', fill='red')
-                    elif map.size[y][x] == 4:
-                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='orange', fill='orange')
-                    elif map.size[y][x] == 5:
-                        canvas.create_rectangle((x * 80, y * 80, (x + 1) * 80, (y + 1) * 80), outline='purple', fill='purple')
+        story3 = tk.Tk()
+        story3.attributes('-fullscreen', True)
+        story3.bind('<Escape>', lambda e: story3.destroy())
+        story3.configure(bg="black")
+        story3_image = ImageTk.PhotoImage(Image.open("Images/Story3.png"))
+        story3_label = tk.Label(bd=0, image=story3_image)
+        story3_label.pack()
+        button = tk.Button(story3, text='Suivant', font=('arial', '24'), command=story3.destroy)
+        button.pack(side='right', padx=50)
+        story3.mainloop()
 
-        window2 = tk.Tk()
-        window2.title("RPG ATA")
-        window2.attributes('-fullscreen', True)
-        window2.bind('<Escape>', lambda e: window2.destroy())
-        window2.configure(bg="black")
-        canvas = tk.Canvas(window2, width=800, height=800)
-        button3 = tk.Button(window2, text="Quitter", font=('arial', '24'), command=window2.destroy)
-        canvas.pack()
-        button3.pack()
-        Draw()
-        canvas.bind_all('<Right>', Map.move(self, 'right_key'))
-        canvas.bind_all('<Left>', Map.move(self, 'left_key'))
-        canvas.bind_all('<Down>', Map.move(self, 'down_key'))
-        canvas.bind_all('<Up>', Map.move(self, 'up_key'))
-        window2.mainloop()
-
+        story4 = tk.Tk()
+        story4.attributes('-fullscreen', True)
+        story4.bind('<Escape>', lambda e: story4.destroy())
+        story4.configure(bg="black")
+        story4_image = ImageTk.PhotoImage(Image.open("Images/Story4.png"))
+        story4_label = tk.Label(bd=0, image=story4_image)
+        story4_label.pack()
+        button = tk.Button(story4, text='Suivant', font=('arial', '24'), command=story4.destroy)
+        button.pack(side='right', padx=50)
+        story4.mainloop()
 
 map = Map(1)
 interface = Interface()

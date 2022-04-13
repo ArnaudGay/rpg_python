@@ -1,11 +1,11 @@
 Storytelling global:
-À dos de griffon, vous arrivez dans une forêt sombre d’Azeroth.Vous vous retrouvez donc seul dans cette forêt et commencez à ressentir une aura malfaisante émanant du cœur de la forêt, mais armé de votre courage ainsi que de votre bel équipement, vous ne reculer devant rien et vous vous lancez donc au cœur de cette forêt. Des créatures vous attendent, mais si vous survivez, vous découvrirez de nouvelles choses plus inattendues les unes que les autres dans ce monde fantastique. Mais gare à vous, le destin ne vous fera pas de cadeau, soyez donc toujours aux aguets.
+À dos de griffon, vous arrivez dans une forêt sombre d’Azeroth. Vous vous retrouvez donc seul dans cette forêt et commencez à ressentir une aura malfaisante émanant du cœur de la forêt, mais armé de votre courage ainsi que de votre bel équipement, vous ne reculez devant rien et vous vous lancez donc au cœur de cette forêt. Des créatures vous attendent, mais si vous survivez, vous découvrirez de nouvelles choses plus inattendues les unes que les autres dans ce monde fantastique. Mais gare à vous, le destin ne vous fera pas de cadeau, soyez donc toujours aux aguets.
 
 Clearing :
 Vous avez réussi à traverser cette forêt tourmentée, et vous vous retrouvez dans une magnifique clairière ensoleillée. Vous ne ressentez aucune adversité, vous avancé donc tranquillement. Au loin vous apercevez un donjon, vous décidez donc de vous y rendre, intrigué de savoir ce qu'il renferme.
 
 Hall donjon :
-Vous poussez les grandes portes de ce donjon et arrivez dans le hall, un long tapis rouge s'étand jusqu'à une porte au bout du hall, mais le chemin est semé d'embuches.
+Vous poussez les grandes portes de ce donjon et arrivez dans le hall, un long tapis rouge s'étend jusqu'à une porte au bout du hall, mais le chemin est semé d'embûches.
 
 Throne hall:
 Après avoir réussi à vaincre les adversaires du hall, vous arrivez à la salle du trône et voyez quelqu'un assis sur le trône.
