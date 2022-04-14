@@ -260,7 +260,7 @@ class Map:
 
 
 class Interface:
-    def __init__(self):
+    def story1():
         story1 = tk.Tk()
         story1.title("RPG ATA")
         story1.attributes('-fullscreen', True)
@@ -272,7 +272,8 @@ class Interface:
         button = tk.Button(story1, text='Suivant', font=('arial', '24'), command=story1.destroy)
         button.pack(side='right', padx=50)
         story1.mainloop()
-    
+
+    def story2():
         story2 = tk.Tk()
         story2.attributes('-fullscreen', True)
         story2.bind('<Escape>', lambda e: story2.destroy())
@@ -284,6 +285,7 @@ class Interface:
         button.pack(side='right', padx=50)
         story2.mainloop()
 
+    def story3():
         story3 = tk.Tk()
         story3.attributes('-fullscreen', True)
         story3.bind('<Escape>', lambda e: story3.destroy())
@@ -295,6 +297,7 @@ class Interface:
         button.pack(side='right', padx=50)
         story3.mainloop()
 
+    def story4():
         story4 = tk.Tk()
         story4.attributes('-fullscreen', True)
         story4.bind('<Escape>', lambda e: story4.destroy())
