@@ -74,7 +74,6 @@ class Monster(Entity):
             Entity.__init__(self, 50, 18, 500)
 
     def attack(self):
-    
         L = ["light_attack", "light_attack", "light_attack", "heavy_attack"]
         attack = choice(L)
 
@@ -241,7 +240,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
@@ -261,7 +260,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
@@ -281,7 +280,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
@@ -301,7 +300,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
