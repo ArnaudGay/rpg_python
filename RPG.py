@@ -288,6 +288,14 @@ def move(step):
                             monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
+                        elif map.size[i][j+1] == 4:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("----------------------")
+                            print("Vous entrez en combat contre le boss!")
+                            print("----------------------")
+                            figter1 = Monster(5)
+                            fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
                             print("Vous sortez de cette partie du donjon",  "\n")
                             map.place += 1
@@ -310,6 +318,14 @@ def move(step):
                             print("----------------------")
                             monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
+                            fight(joueur, figter1)
+                        elif map.size[i][j-1] == 4:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("----------------------")
+                            print("Vous entrez en combat contre le boss!")
+                            print("----------------------")
+                            figter1 = Monster(5)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
                             print("Vous sortez de cette partie du donjon", "\n")
@@ -336,6 +352,14 @@ def move(step):
                             monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
+                        elif map.size[i+1][j] == 4:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("----------------------")
+                            print("Vous entrez en combat contre le boss!")
+                            print("----------------------")
+                            figter1 = Monster(5)
+                            fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
                             print("Vous sortez de cette partie du donjon", "\n")
                             map.place += 1
@@ -358,6 +382,14 @@ def move(step):
                             print("----------------------")
                             monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
+                            fight(joueur, figter1)
+                        elif map.size[i-1][j] == 4:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("----------------------")
+                            print("Vous entrez en combat contre le boss!")
+                            print("----------------------")
+                            figter1 = Monster(5)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
                             print("Vous sortez de cette partie du donjon", "\n")
