@@ -139,18 +139,17 @@ class Chest(PlayerRPG):
             self.effect_amount = 5 * self.level
 
 
-class Donjon:
-    def fight(self, player, monster):
-        while player.hp > 0 and monster.hp > 0:
-            print("Choisissez une attaque contre se monstre.")
-            print("'Armor breaker', 'Cleaver', 'Light attack', 'Heavy attack'")
-            choice = input("Which attack do you want ?\n> ")
-            player.attack(choice, monster)
-            monster.hp -= player.dps - monster.defence
-            print("Voici les points de vie du monstre", monster.hp)
-            print("Le monstre vous attaque.")
-            player.hp -= monster.dps - player.defence
-            print("Voici vos points de vie", player.hp)
+def fight(player, monster):
+    while player.hp > 0 and monster.hp > 0:
+        print("Choisissez une attaque contre se monstre.")
+        print("'Armor breaker', 'Cleaver', 'Light attack', 'Heavy attack'")
+        choice = input("Which attack do you want ?\n> ")
+        player.attack(choice, monster)
+        monster.hp -= player.dps - monster.defence
+        print("Voici les points de vie du monstre", monster.hp)
+        print("Le monstre vous attaque.")
+        player.hp -= monster.dps - player.defence
+        print("Voici vos points de vie", player.hp)
 
 
 class Map:
@@ -240,7 +239,7 @@ def move(step):
                             print("vous entrez en combat.")
                             monstre = choice(["Human", "Undead", "Robot", "Demon"])
                             figter1 = Monster(monstre)
-                            Donjon().fight(joueur, figter1)
+                            fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
                             print("Vous sortez de cette partie du donjon.")
                             map.place += 1
@@ -260,7 +259,7 @@ def move(step):
                             print("vous entrez en combat.")
                             monstre = choice(["Human", "Undead", "Robot", "Demon"])
                             figter1 = Monster(monstre)
-                            Donjon().fight(joueur, figter1)
+                            fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
                             print("Vous sortez de cette partie du donjon.")
                             map.place += 1
@@ -280,7 +279,7 @@ def move(step):
                             print("vous entrez en combat.")
                             monstre = choice(["Human", "Undead", "Robot", "Demon"])
                             figter1 = Monster(monstre)
-                            Donjon().fight(joueur, figter1)
+                            fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
                             print("Vous sortez de cette partie du donjon.")
                             map.place += 1
@@ -300,7 +299,7 @@ def move(step):
                             print("vous entrez en combat.")
                             monstre = choice(["Human", "Undead", "Robot", "Demon"])
                             figter1 = Monster(monstre)
-                            Donjon().fight(joueur, figter1)
+                            fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
                             print("Vous sortez de cette partie du donjon.")
                             map.place += 1
