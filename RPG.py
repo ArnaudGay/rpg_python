@@ -1,4 +1,6 @@
+from msilib.schema import Class
 import tkinter as tk
+from turtle import up
 from PIL import ImageTk, Image
 from random import choice
 
@@ -46,32 +48,32 @@ class PlayerRPG(Entity):
         self.inventory[choice].use(self)
 
     def attack(self, attack, monster):
-        if attack == "armor_breaker":
-            self.attack += 12 + self.level
+        if attack == "Armor breaker":
+            self.dps += 12 + self.level
             monster.defence -= 2 * (0.2 * self.level)
 
-        if attack == "cleaver":
-            self.attack += 20 + self.level
+        if attack == "Cleaver":
+            self.dps += 20 + self.level
 
-        if attack == "light_attack":
-            self.attack += 8 + self.level
+        if attack == "Light_attack":
+            self.dps += 8 + self.level
 
-        if attack == "heavy_attack":
-            self.attack += 14 + self.level
+        if attack == "Heavy_attack":
+            self.dps += 14 + self.level
 
 
 class Monster(Entity):
-    def __init__(self, monster_type, monster):
+    def __init__(self, monster_type):
         if monster_type == "Human":
-            Entity.__init__(self, 19, 5, 220, monster)
+            Entity.__init__(self, 19, 5, 220)
         if monster_type == "Undead":
-            Entity.__init__(self, 21, 7, 180, monster)
+            Entity.__init__(self, 21, 7, 180)
         if monster_type == "Robot":
-            Entity.__init__(self, 20, 10, 300, monster)
+            Entity.__init__(self, 20, 10, 300)
         if monster_type == "Demon":
-            Entity.__init__(self, 25, 8, 260, monster)
+            Entity.__init__(self, 25, 8, 260)
         if monster_type == "Boss":
-            Entity.__init__(self, 50, 18, 500, monster)
+            Entity.__init__(self, 50, 18, 500)
 
     def attack(self, attack):
 
@@ -94,7 +96,7 @@ class Item:
         self.level = level
 
     def use(self, name, player):
-        pass
+        return
 
 
 class Potion(Item):
@@ -108,7 +110,7 @@ class Potion(Item):
         if self.effect == "Heal":
             player.hp += self.effect_amount
         elif self.effect == "Strength":
-            player.attack += self.effect_amount
+            player.dps += self.effect_amount
         elif self.effect == "Resistance":
             player.defence += self.effect_amount
             self.quantity -= 1
@@ -122,7 +124,7 @@ class Chest(PlayerRPG):
 
     def item_dropped(self, player):
         if self.chest == "Weapon":
-            player.attack += 5 * self.level
+            player.dps += 5 * self.level
 
         if self.chest == "Armor":
             player.defence += 4 * self.level
@@ -138,22 +140,23 @@ class Chest(PlayerRPG):
 
 
 class Donjon:
-    def __init__(self):
-        pass
-
-    def fight(player, monster):
-        while player.hp > 0:
-            print("Armor breaker", "Cleaver", "Light attack", "Heavy attack")
-            choice = input("Which attack do you want ?")
+    def fight(self, player, monster):
+        while player.hp > 0 and monster.hp > 0:
+            print("Choisissez une attaque contre se monstre.")
+            print("'Armor breaker', 'Cleaver', 'Light attack', 'Heavy attack'")
+            choice = input("Which attack do you want ?\n> ")
             player.attack(choice, monster)
-            monster.hp -= player.attack - monster.defence
-        while monster.hp > 0:
-            player.hp -= monster.attack - player.defence
+            monster.hp -= player.dps - monster.defence
+            print("Voici les points de vie du monstre", monster.hp)
+            print("Le monstre vous attaque.")
+            player.hp -= monster.dps - player.defence
+            print("Voici vos points de vie", player.hp)
 
 
 class Map:
     def __init__(self, place):
         self.size = [[0 for row in range(10)] for col in range(10)]
+        self.place = place
         for y in range(10):
             for x in range(10):
                 if y == 0:
@@ -220,44 +223,100 @@ class Map:
                 terr.append(terr_bis)
             fic.close()
             self.size = terr
+        for i in range(10):
+            print(self.size[i])
 
-    def move(self, step):
-        step = step
-        for i in range(len(self.size)):
-            for j in range(1, 10):
-                if self.size[i][j] == 7:
-                    if step == "right" and self.size[i][j+1] == 0:
-                        print("oui")
-                        self.size[i][j+1] = 7
-                        self.size[i][j] = 0
+
+def move(step):
+    liste_condi = [0, 3, 5, 8]
+    for i in range(len(map.size)):
+        for j in range(1, 10):
+            if map.size[i][j] == 7:
+                if j != 9:
+                    if step == "right" and map.size[i][j+1] in liste_condi:
+                        if map.size[i][j+1] == 5:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("vous entrez en combat.")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            figter1 = Monster(monstre)
+                            Donjon().fight(joueur, figter1)
+                        elif map.size[i][j+1] == 8:
+                            print("Vous sortez de cette partie du donjon.")
+                            map.place += 1
+                        map.size[i][j+1] = 7
+                        map.size[i][j] = 0
                         for x in range(10):
-                            print(self.size[x])
-                        break
-                    elif step == "left" and self.size[i][j-1] == 0:
-                        print("oui")
-                        self.size[i][j-1] = 7
-                        self.size[i][j] = 0
-                    if step == "down":
-                        self.size[i][j] == self.size[i-1][j]
-                        if self.size[j] == 2:
-                            self.size[i][j] -= self.size[i+1][j]
-                        if self.size[j] == 3:
-                            self.size[i][j] -= self.size[i+1][j]
-                        if self.size[j] == 4:
-                            self.size[i][j] -= self.size[i+1][j]
-                    if step == "up":
-                        self.size[i][j] == self.size[i+1][j]
-                        if self.size[j] == 2:
-                            self.size[i][j] -= self.size[i-1][j]
-                        if self.size[j] == 3:
-                            self.size[i][j] -= self.size[i-1][j]
-                        if self.size[j] == 3:
-                            self.size[i][j] -= self.size[i-1][j]
+                            print(map.size[x])
+                        return
+                    elif step == "right" and map.size[i][j+1] == 2:
+                        Chest().item_dropped(joueur)
+                        return
+                if j != 0:
+                    if step == "left" and map.size[i][j-1] in liste_condi:
+                        if map.size[i][j-1] == 5:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("vous entrez en combat.")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            figter1 = Monster(monstre)
+                            Donjon().fight(joueur, figter1)
+                        elif map.size[i][j-1] == 8:
+                            print("Vous sortez de cette partie du donjon.")
+                            map.place += 1
+                        map.size[i][j-1] = 7
+                        map.size[i][j] = 0
+                        for x in range(10):
+                            print(map.size[x])
+                        return
+                    elif step == "left" and map.size[i][j-1] == 2:
+                        Chest().item_dropped(joueur)
+                        return
+                if i != 9:
+                    if step == "down" and map.size[i+1][j] in liste_condi:
+                        if map.size[i+1][j] == 5:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("vous entrez en combat.")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            figter1 = Monster(monstre)
+                            Donjon().fight(joueur, figter1)
+                        elif map.size[i+1][j] == 8:
+                            print("Vous sortez de cette partie du donjon.")
+                            map.place += 1
+                        map.size[i+1][j] = 7
+                        map.size[i][j] = 0
+                        for x in range(10):
+                            print(map.size[x])
+                        return
+                    elif step == "down" and map.size[i+1][j] == 2:
+                        Chest().item_dropped(joueur)
+                        return
+                if i != 0:
+                    if step == "up" and map.size[i-1][j] in liste_condi:
+                        if map.size[i-1][j] == 5:
+                            for x in range(10):
+                                print(map.size[x])
+                            print("vous entrez en combat.")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            figter1 = Monster(monstre)
+                            Donjon().fight(joueur, figter1)
+                        elif map.size[i-1][j] == 8:
+                            print("Vous sortez de cette partie du donjon.")
+                            map.place += 1
+                        map.size[i-1][j] = 7
+                        map.size[i][j] = 0
+                        for x in range(10):
+                            print(map.size[x])
+                        return
+                    elif step == "up" and map.size[i-1][j] == 2:
+                        Chest().item_dropped(joueur)
+                        return
+    print("Vous ne pouvez pas allez ici!")
 
 
-
-class Interface:
-    def __init__(self):
+def affichage(numero):
+    if numero == 1:
         story1 = tk.Tk()
         story1.title("RPG ATA")
         story1.attributes('-fullscreen', True)
@@ -269,7 +328,7 @@ class Interface:
         button = tk.Button(story1, text='Suivant', font=('arial', '24'), command=story1.destroy)
         button.pack(side='right', padx=50)
         story1.mainloop()
-    
+    elif numero == 2:
         story2 = tk.Tk()
         story2.attributes('-fullscreen', True)
         story2.bind('<Escape>', lambda e: story2.destroy())
@@ -280,7 +339,7 @@ class Interface:
         button = tk.Button(story2, text='Suivant', font=('arial', '24'), command=story2.destroy)
         button.pack(side='right', padx=50)
         story2.mainloop()
-
+    elif numero == 3:
         story3 = tk.Tk()
         story3.attributes('-fullscreen', True)
         story3.bind('<Escape>', lambda e: story3.destroy())
@@ -291,7 +350,7 @@ class Interface:
         button = tk.Button(story3, text='Suivant', font=('arial', '24'), command=story3.destroy)
         button.pack(side='right', padx=50)
         story3.mainloop()
-
+    elif numero == 4:
         story4 = tk.Tk()
         story4.attributes('-fullscreen', True)
         story4.bind('<Escape>', lambda e: story4.destroy())
@@ -306,13 +365,29 @@ class Interface:
 
 print("Bienvenu sur RPG ATA, veuillez choisir votre classe de personnage entre 'Warrior', 'Hunter', 'Rogue', 'Monk'. ")
 player_type = input("> ")
-player = PlayerRPG(player_type)
+joueur = PlayerRPG(player_type)
 print("Vous vous trouvez dans la forêt. Voici la map.")
-place = 1
-map = Map(place)
-for i in range(10):
-    print(map.size[i])
+verif = 1
+map = Map(1)
 print("Vous êtes le numéro 7, où souhaitez-vous vous déplacer ?")
 print("'right', 'left', 'down', 'up'")
 step = input("> ")
-Map(place).move(step)
+move(step)
+
+
+def game(verif):
+    while map.place == verif:
+        print("Où souhaitez-vous vous déplacer ?")
+        print("'right', 'left', 'down', 'up'")
+        step2 = input("> ")
+        move(step2)
+    Map(map.place + 1)
+    if map.place < 5:
+        verif = map.place
+
+        game(verif)
+    else:
+        print("Vous avez fini le jeu.")
+
+
+game(verif)
