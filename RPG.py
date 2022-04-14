@@ -146,7 +146,8 @@ def fight(player, monster):
         print("Voici les points de vie du monstre", monster.hp)
         print("Le monstre vous attaque.")
         monster.attack()
-        player.hp -= monster.dps - player.defence
+        if monster.dps > player.defence:
+            player.hp -= monster.dps - player.defence
         print("Voici vos points de vie", player.hp)
 
 
