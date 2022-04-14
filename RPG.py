@@ -12,18 +12,18 @@ class Entity:
 
 class PlayerRPG(Entity):
     def __init__(self, player_type):
-        if player_type == "Warrior":
+        if player_type == "Guerrier":
             Entity.__init__(self, 70, 80, 640)
-            self.inventory = ["Two-handed sword", "Plate armor"]
-        if player_type == "Hunter":
+            self.inventory = ["Épée à deux mains", "Armure en plaques"]
+        if player_type == "Chasseur":
             Entity.__init__(self, 90, 60, 520)
-            self.inventory = ["Bow", "Mail armor"]
-        if player_type == "Rogue":
+            self.inventory = ["Arc", "Armure en mailles"]
+        if player_type == "Voleur":
             Entity.__init__(self, 110, 40, 480)
-            self.inventory = ["Daggers", "Leather armor"]
-        if player_type == "Monk":
+            self.inventory = ["Dagues", "Armure en cuir"]
+        if player_type == "Moine":
             Entity.__init__(self, 80, 60, 580)
-            self.inventory = ["Stave", "Leather armor"]
+            self.inventory = ["Bâton", "Armure en cuir"]
         self.level = 1
         self.experience = 0
         self.level_xp = 200 * self.level
@@ -41,7 +41,7 @@ class PlayerRPG(Entity):
             print(i, self.inventory[i])
 
     def choose_item(self):
-        print("What object would you like to use ?")
+        print("Quel objet souhaitez-vous utiliser ?")
         choice = int(input())
         self.inventory[choice].use(self)
 
@@ -62,27 +62,26 @@ class PlayerRPG(Entity):
 
 class Monster(Entity):
     def __init__(self, monster_type):
-        if monster_type == "Human":
+        if monster_type == "Humain":
             Entity.__init__(self, 19, 5, 220)
-        if monster_type == "Undead":
+        if monster_type == "Mort-vivant":
             Entity.__init__(self, 21, 7, 180)
         if monster_type == "Robot":
             Entity.__init__(self, 20, 10, 300)
-        if monster_type == "Demon":
+        if monster_type == "Démon":
             Entity.__init__(self, 25, 8, 260)
         if monster_type == "Boss":
             Entity.__init__(self, 50, 18, 500)
 
     def attack(self):
-    
-        L = ["light_attack", "light_attack", "light_attack", "heavy_attack"]
+        L = ["Attaque légère", "Attaque légère", "Attaque légère", "Attaque lourde"]
         attack = choice(L)
 
-        if attack == "light_attack":
+        if attack == "Attaque légère":
             self.dps += 5
             print(attack)
 
-        if attack == "heavy_attack":
+        if attack == "Attaque lourde":
             self.dps += 10
 
             print(attack)
@@ -102,11 +101,11 @@ class Potion(Item):
         self.quantity = quantity
 
     def use(self, player):
-        if self.effect == "Heal":
+        if self.effect == "Soin":
             player.hp += self.effect_amount
-        elif self.effect == "Strength":
+        elif self.effect == "Force":
             player.dps += self.effect_amount
-        elif self.effect == "Resistance":
+        elif self.effect == "Résistance":
             player.defence += self.effect_amount
             self.quantity -= 1
 
@@ -114,31 +113,31 @@ class Potion(Item):
 class Chest(PlayerRPG):
     def __init__(self, effect_amount, level):
         super().__init__(level)
-        self.chest = ["Weapon", "Armor", "Heal potion", "Strength potion",
-                      "Resistance potion"]
+        self.chest = ["Arme", "Armure", "Potion de soin", "Potion de force",
+                      "Potion de résistance"]
 
     def item_dropped(self, player):
-        if self.chest == "Weapon":
+        if self.chest == "Arme":
             player.dps += 5 * self.level
 
-        if self.chest == "Armor":
+        if self.chest == "Armure":
             player.defence += 4 * self.level
 
-        if self.chest == "Heal potion":
+        if self.chest == "Potion de soin":
             self.effect_amount = 250 * self.level
 
-        if self.chest == "Strenght potion":
+        if self.chest == "Potion de force":
             self.effect_amount = 10 * self.level
 
-        if self.chest == "Reistance potion":
+        if self.chest == "Potion de résistance":
             self.effect_amount = 5 * self.level
 
 
 def fight(player, monster):
     while player.hp > 0 and monster.hp > 0:
-        print("Choisissez une attaque contre se monstre. \n")
-        print("[1] Armor breaker, [2] Cleaver, [3] Light attack, [4] Heavy attack \n")
-        choice = input("Which attack do you want ?\n> ")
+        print("Choisissez une attaque contre ce monstre. \n")
+        print("[1] Brise-armure, [2] Fendoir, [3] Attaque légère, [4] Attaque lourde \n")
+        choice = input("Quel attaque voulez-vous utiliser ?\n> ")
         player.attack(choice, monster)
         monster.hp -= player.dps - monster.defence
         print("")
@@ -241,7 +240,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Humain", "Mort-vivant", "Robot", "Démon", "\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
