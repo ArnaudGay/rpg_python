@@ -75,7 +75,6 @@ class PlayerRPG(Entity):
                 self.dps = 110
             elif self.player_type == "Moine":
                 self.dps = 80
-            self.dps = player_type.dps
             self.dps += 20 + self.level
             self.dps -= monster.defence/10
 
@@ -89,7 +88,6 @@ class PlayerRPG(Entity):
                 self.dps = 110
             elif self.player_type == "Moine":
                 self.dps = 80
-            self.dps = player_type.dps
             self.dps += 8 + self.level
             self.dps -= monster.defence/10
 
@@ -103,7 +101,6 @@ class PlayerRPG(Entity):
                 self.dps = 110
             elif self.player_type == "Moine":
                 self.dps = 80
-            self.dps = player_type.dps
             self.dps += 14 + self.level
             self.dps -= monster.defence/10
 
@@ -115,37 +112,62 @@ class Monster(Entity):
             print("Vous affrontez un humain")
             print("")
             Entity.__init__(self, 30, 10, 220)
+            self.monster_type = 1
         if monster_type == 2:
             print("")
             print("Vous affrontez un mort-vivant")
             print("")
             Entity.__init__(self, 35, 12, 180)
+            self.monster_type = 2
         if monster_type == 3:
             print("")
             print("Vous affrontez un robot")
             print("")
             Entity.__init__(self, 40, 15, 300)
+            self.monster_type = 3
         if monster_type == 4:
             print("")
             print("Vous affrontez un démon")
             print("")
             Entity.__init__(self, 45, 13, 260)
+            self.monster_type = 4
         if monster_type == 5:
             print("")
             print("Vous affrontez un boss")
             print("")
             Entity.__init__(self, 70, 20, 500)
+            self.monster_type = 5
 
     def attack(self, player):
         L = ["Attaque légère", "Attaque légère", "Attaque légère", "Attaque lourde"]
         attack = choice(L)
 
         if attack == "Attaque légère":
+            if self.monster_type == 1:
+                self.dps = 30
+            elif self.monster_type == 2:
+                self.dps = 35
+            elif self.monster_type == 3:
+                self.dps = 40
+            elif self.monster_type == 4:
+                self.dps = 45
+            elif self.monster_type == 5:
+                self.dps = 70
             self.dps += 5
             self.dps -= player.defence/10
             print("Il utilise une attaque légère", "\n")
 
         if attack == "Attaque lourde":
+            if self.monster_type == 1:
+                self.dps = 30
+            elif self.monster_type == 2:
+                self.dps = 35
+            elif self.monster_type == 3:
+                self.dps = 40
+            elif self.monster_type == 4:
+                self.dps = 45
+            elif self.monster_type == 5:
+                self.dps = 70
             self.dps += 10
             self.dps -= player.defence/10
             print("Il utilise une attaque lourde" "\n")
