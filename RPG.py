@@ -75,17 +75,17 @@ class Monster(Entity):
         if monster_type == "Boss":
             Entity.__init__(self, 50, 18, 500)
 
-    def attack(self, attack):
+    def attack(self):
 
         L = ["light_attack", "light_attack", "light_attack", "heavy_attack"]
         attack = choice(L)
 
         if attack == "light_attack":
-            self.dps += 5 + self.level
+            self.dps += 5
             print(attack)
 
         if attack == "heavy_attack":
-            self.dps += 10 + self.level
+            self.dps += 10
 
             print(attack)
 
@@ -94,9 +94,6 @@ class Item:
     def __init__(self, name, level):
         self.name = name
         self.level = level
-
-    def use(self, name, player):
-        return
 
 
 class Potion(Item):
@@ -148,6 +145,7 @@ def fight(player, monster):
         monster.hp -= player.dps - monster.defence
         print("Voici les points de vie du monstre", monster.hp)
         print("Le monstre vous attaque.")
+        monster.attack()
         player.hp -= monster.dps - player.defence
         print("Voici vos points de vie", player.hp)
 
@@ -375,15 +373,15 @@ move(step)
 
 
 def game(verif):
+    global map
     while map.place == verif:
         print("Où souhaitez-vous vous déplacer ?")
         print("'right', 'left', 'down', 'up'")
         step2 = input("> ")
         move(step2)
-    Map(map.place + 1)
+    map = Map(map.place + 1)
     if map.place < 5:
         verif = map.place
-
         game(verif)
     else:
         print("Vous avez fini le jeu.")
