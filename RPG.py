@@ -49,22 +49,33 @@ class PlayerRPG(Entity):
 
     def attack(self, attack, monster):
         if attack == 1:
-            print("Brise-armure")
+            print("Vous utilisez 'Brise-armure'")
+            if self.player_type == "Guerrier":
+                self.dps = 70
+            if self.player_type == "Chasseur":
+                self.dps = 90
+            if self.player_type == "Voleur":
+                self.dps = 110
+            if self.player_type == "Moine":
+                self.dps = 80
             self.dps += 12 + self.level
             self.dps -= monster.defence/10
 
         if attack == 2:
-            print("Fendoir")
+            print("Vous utilisez 'Fendoir'")
+            self.dps = player_type.dps
             self.dps += 20 + self.level
             self.dps -= monster.defence/10
 
         if attack == 3:
-            print("Attaque légère")
+            print("Vous utilisez 'Attaque légère'")
+            self.dps = player_type.dps
             self.dps += 8 + self.level
             self.dps -= monster.defence/10
 
         if attack == 4:
-            print("Attaque lourde")
+            print("Vous utilisez 'Attaque lourde'")
+            self.dps = player_type.dps
             self.dps += 14 + self.level
             self.dps -= monster.defence/10
 
@@ -168,7 +179,7 @@ def fight(player, monster):
             print("")
             print("Choisissez une attaque contre ce monstre.", "\n")
             print("[1] Brise-armure / [2] Fendoir / [3] Attaque légère / [4] Attaque lourde", "\n")
-            choice = input("Quel attaque voulez-vous utiliser ?\n>")
+            choice = int(input("Quel attaque voulez-vous utiliser ?\n>"))
             player.attack(choice, monster)
             monster.hp -= player.dps
             print("---------------------------------------")
