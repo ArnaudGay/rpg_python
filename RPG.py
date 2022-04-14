@@ -145,8 +145,8 @@ def fight(player, monster):
         print("")
         print("Le monstre vous attaque. \n")
         monster.attack()
-        player.hp -= monster.dps - player.defence
-        print("")
+        if monster.dps > player.defence:
+            player.hp -= monster.dps - player.defence
         print("Voici vos points de vie", player.hp)
         print("")
 
@@ -260,7 +260,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
@@ -280,7 +280,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
@@ -300,7 +300,7 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
+                            monstre = choice(["Human", "Undead", "Robot", "Demon""\n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
