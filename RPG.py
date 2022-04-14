@@ -4,6 +4,7 @@ from random import choice
 
 
 class Entity:
+    '''Class qui permet la création de chaque entité'''
     def __init__(self, dps, defence, hp):
         self.dps = dps
         self.defence = defence
@@ -11,6 +12,9 @@ class Entity:
 
 
 class PlayerRPG(Entity):
+    '''Class qui permet la création du joueur que vous incarnez dans ce jeu.
+        Elle permet le choix entre 4 type de joueur bien distin.
+    '''
     def __init__(self, player_type):
         if player_type == "Guerrier":
             Entity.__init__(self, 70, 80, 640)
@@ -33,6 +37,7 @@ class PlayerRPG(Entity):
         self.level_xp = 200 * self.level
 
     def level_experience(self):
+        '''Fonction qui donne et calcul l'expérience du joueur.'''
         if self.experience == self.level_xp:
             self.level += 1
             self.experience = 0
@@ -42,16 +47,8 @@ class PlayerRPG(Entity):
             print("BRAVO !!! Vous gagnez un niveau")
             print("Vous passez niveau", self.level)
 
-    def open_inventory(self):
-        for i in range(0, len(self.inventory), 1):
-            print(i, self.inventory[i])
-
-    def choose_item(self):
-        print("Quel objet souhaitez-vous utiliser ?")
-        choice = int(input())
-        self.inventory[choice].use(self)
-
     def attack(self, attack, monster):
+        '''Fonction qui permet de faire attaquer le joueur contre les monstres en fonction de leur défense et du type d'attaque choisi.'''
         if attack == 1:
             print("Vous utilisez 'Brise-armure'")
             if self.player_type == "Guerrier":
@@ -109,6 +106,9 @@ class PlayerRPG(Entity):
 
 
 class Monster(Entity):
+    '''Class qui permet la création de monstre contre les quels vous jourez.
+        Elle permet le choix entre 5 type de monstre bien distin.
+    '''
     def __init__(self, monster_type):
         if monster_type == 1:
             print("")
@@ -137,6 +137,7 @@ class Monster(Entity):
             Entity.__init__(self, 70, 20, 500)
 
     def attack(self, player):
+        '''Fonction qui permet de au monstre d'attaquer avec 2 type d'attaque qui sont aléatoire.'''
         L = ["Attaque légère", "Attaque légère", "Attaque légère", "Attaque lourde"]
         attack = choice(L)
 
@@ -152,12 +153,14 @@ class Monster(Entity):
 
 
 class Potion():
+    '''Class qui permet l'utilisation et la création des potions.'''
     def __init__(self, type, effect_amount, quantity):
         self.type = type
         self.effect_amount = effect_amount
         self.quantity = quantity
 
     def use(self, player):
+        '''fonction qui permet l'utilisation des potions.'''
         print("")
         print("Quelle potion souhaitez-vous utiliser : [1] Potion de soin / [2] Potion de force / [3] Potion de résistance")
         potion_choice = input("> ")
@@ -173,11 +176,14 @@ class Potion():
 
 
 class Chest():
+    '''Class qui permet de voir le contenu d'un coffre.
+        Elle ajoute au joueur sont contenu aléatoirement.'''
     def __init__(self):
         self.chest = ["Arme", "Armure", "Potion de soin", "Potion de force",
                       "Potion de résistance"]
 
     def item_dropped(self, player):
+        '''Fonction qui ajoute les items de façon aléatoire dans l'inventaire du joueur.'''
         drop = choice(self.chest)
         if drop == "Arme":
             player.dps += 5 * player.level
@@ -200,6 +206,7 @@ class Chest():
 
 
 def fight(player, monster):
+    '''Fonction qui permet le combat entre un joueur et un monstre'''
     while player.hp > 0 and monster.hp > 0:
         print("Souhaitez-vous attaquer ou ouvrir votre inventaire ?\n")
         result = input("[1] Attaquer / [2] Inventaire\n>")
@@ -235,6 +242,7 @@ def fight(player, monster):
         player.experience += 200
 
 class Map:
+    '''Class qui est à l'origine de la création des maps.'''
     def __init__(self, place):
         self.size = [[0 for row in range(10)] for col in range(10)]
         self.place = place
@@ -312,6 +320,7 @@ class Map:
 
 
 def move(step):
+    '''Fonction qui permet le mouvement des joueurs à l'intérieur des différentes map.'''
     liste_condi = [0, 3, 5, 8]
     for i in range(len(map.size)):
         for j in range(1, 10):
@@ -447,6 +456,7 @@ def move(step):
 
 
 def affichage(numero):
+    '''Fonctrion qui permet l'affichage de chaque storitelling entre chaque map.'''
     if numero == 0:
         story0 = tk.Tk()
         story0.title("RPG ATA")
@@ -531,6 +541,7 @@ move(step)
 
 
 def game(verif, map):
+    '''Fonction principale du jeu qui permet de la faire tourner temps que le jeu n'est pas fini.'''
     while map.place == verif:
         print("Où souhaitez-vous vous déplacer ? \n")
         print("[1] Droite / [2] Gauche / [3] Bas / [4] Haut")
