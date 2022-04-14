@@ -371,6 +371,7 @@ joueur = PlayerRPG(player_type)
 print("Vous vous trouvez dans la forêt. Voici la map : \n")
 verif = 1
 map = Map(1)
+affichage(map.place)
 print("")
 print("Vous êtes le numéro 7, où souhaitez-vous vous déplacer ? \n")
 print("'right', 'left', 'down', 'up'")
@@ -387,6 +388,7 @@ def game(verif):
         move(step2)
     map = Map(map.place + 1)
     if map.place < 5:
+        affichage(map.place)
         verif = map.place
         game(verif)
     else:
