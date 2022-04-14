@@ -272,6 +272,7 @@ def move(step):
                         elif map.size[i][j+1] == 8:
                             print("Vous sortez de cette partie du donjon.",  "\n")
                             map.place += 1
+                            return
                         map.size[i][j+1] = 7
                         map.size[i][j] = 0
                         for x in range(10):
@@ -294,6 +295,7 @@ def move(step):
                         elif map.size[i][j-1] == 8:
                             print("Vous sortez de cette partie du donjon.", "\n")
                             map.place += 1
+                            return
                         map.size[i][j-1] = 7
                         map.size[i][j] = 0
                         for x in range(10):
@@ -318,6 +320,7 @@ def move(step):
                         elif map.size[i+1][j] == 8:
                             print("Vous sortez de cette partie du donjon. \n")
                             map.place += 1
+                            return
                         map.size[i+1][j] = 7
                         map.size[i][j] = 0
                         for x in range(10):
@@ -340,6 +343,7 @@ def move(step):
                         elif map.size[i-1][j] == 8:
                             print("Vous sortez de cette partie du donjon. \n")
                             map.place += 1
+                            return
                         map.size[i-1][j] = 7
                         map.size[i][j] = 0
                         for x in range(10):
@@ -421,21 +425,20 @@ step = input("> ")
 move(step)
 
 
-def game(verif):
-    global map
+def game(verif, map):
     while map.place == verif:
         print("")
         print("Où souhaitez-vous vous déplacer ? \n")
         print("'droite', 'gauche', 'bas', 'haut'")
         step2 = input("> ")
         move(step2)
-    map = Map(map.place + 1)
+    map = Map(map.place)
     if map.place < 5:
-        affichage(map.place)
+        affichage(verif)
         verif = map.place
-        game(verif)
+        game(verif, map)
     else:
         print("Vous avez fini le jeu. \n")
 
 
-game(verif)
+game(verif, map)
