@@ -316,6 +316,18 @@ def move(step):
 
 
 def affichage(numero):
+    if numero == 0:
+        story0 = tk.Tk()
+        story0.title("RPG ATA")
+        story0.attributes('-fullscreen', True)
+        story0.bind('<Escape>', lambda e: story0.destroy())
+        story0.configure(bg="black")
+        story0_image = ImageTk.PhotoImage(Image.open("Images/Story0.png"))
+        story0_label = tk.Label(bd=0, image=story0_image)
+        story0_label.pack(side="bottom", pady=300)
+        button = tk.Button(story0, text='Suivant', font=('arial', '24'), command=story0.destroy)
+        button.place(anchor="s")
+        story0.mainloop()
     if numero == 1:
         story1 = tk.Tk()
         story1.title("RPG ATA")
@@ -326,7 +338,7 @@ def affichage(numero):
         story1_label = tk.Label(bd=0, image=story1_image)
         story1_label.pack()
         button = tk.Button(story1, text='Suivant', font=('arial', '24'), command=story1.destroy)
-        button.pack(side='right', padx=50)
+        button.pack(side='bottom', padx=50)
         story1.mainloop()
     elif numero == 2:
         story2 = tk.Tk()
@@ -337,7 +349,7 @@ def affichage(numero):
         story2_label = tk.Label(bd=0, image=story2_image)
         story2_label.pack()
         button = tk.Button(story2, text='Suivant', font=('arial', '24'), command=story2.destroy)
-        button.pack(side='right', padx=50)
+        button.pack(side='bottom', padx=50)
         story2.mainloop()
     elif numero == 3:
         story3 = tk.Tk()
@@ -348,7 +360,7 @@ def affichage(numero):
         story3_label = tk.Label(bd=0, image=story3_image)
         story3_label.pack()
         button = tk.Button(story3, text='Suivant', font=('arial', '24'), command=story3.destroy)
-        button.pack(side='right', padx=50)
+        button.pack(side='bottom', padx=50)
         story3.mainloop()
     elif numero == 4:
         story4 = tk.Tk()
@@ -359,9 +371,11 @@ def affichage(numero):
         story4_label = tk.Label(bd=0, image=story4_image)
         story4_label.pack()
         button = tk.Button(story4, text='Suivant', font=('arial', '24'), command=story4.destroy)
-        button.pack(side='right', padx=50)
+        button.pack(side='bottom', padx=50)
         story4.mainloop()
 
+
+affichage(0)
 print("--------------------------------------------------------------------------------------------------------------------")
 print("Bienvenue sur RPG ATA, veuillez choisir votre classe de personnage entre : 'Guerrier', 'Chasseur', 'Voleur', 'Moine'")
 print("--------------------------------------------------------------------------------------------------------------------")
