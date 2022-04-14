@@ -1,4 +1,3 @@
-from re import I
 import tkinter as tk
 from PIL import ImageTk, Image
 from random import choice
@@ -158,7 +157,7 @@ def fight(player, monster):
             print("Voici les points de vie du monstre", monster.hp)
             print("")
             print("Le monstre vous attaque.", "\n")
-            monster.attack()
+            monster.attack(player)
             if monster.dps > player.defence:
                 player.hp -= monster.dps - player.defence
             print("Voici vos points de vie", player.hp)
@@ -262,7 +261,7 @@ def move(step):
                             print("----------------------")
                             print("Vous entrez en combat")
                             print("----------------------")
-                            monstre = choice([1, 2, 3, 4, 5])
+                            monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
@@ -284,7 +283,7 @@ def move(step):
                             print("----------------------")
                             print("Vous entrez en combat")
                             print("----------------------")
-                            monstre = choice([1, 2, 3, 4, 5])
+                            monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
@@ -306,7 +305,7 @@ def move(step):
                             print("----------------------")
                             print("Vous entrez en combat")
                             print("----------------------")
-                            monstre = choice([1, 2, 3, 4, 5])
+                            monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
@@ -328,7 +327,7 @@ def move(step):
                             print("----------------------")
                             print("Vous entrez en combat")
                             print("----------------------")
-                            monstre = choice([1, 2, 3, 4, 5])
+                            monstre = choice(range(1, 5))
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
