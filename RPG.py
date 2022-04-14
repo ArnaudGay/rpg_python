@@ -110,18 +110,18 @@ class Potion():
         print("")
         print("Quelle potion souhaitez-vous utiliser : [1] Potion de soin, [2] Potion de force, [3] Potion de résistance")
         potion_choice = input("> ")
-        if potion_choice == 1:
+        if potion_choice == 1 and "Potion de soin" in player.inventory:
             player.hp += 200
             player.inventory.remove("Potion de soin")
-        elif self.effect == 2:
+        elif self.effect == 2 and "Potion de force" in player.inventory:
             player.dps += 10
             player.inventory.remove("Potion de force")
-        elif self.effect == 3:
+        elif self.effect == 3 and "Potion de résistance" in player.inventory:
             player.defence += 10
             player.inventory.remove("Potion de résistance")
 
 
-class Chest(PlayerRPG):
+class Chest():
     def __init__(self):
         self.chest = ["Arme", "Armure", "Potion de soin", "Potion de force",
                       "Potion de résistance"]
@@ -130,17 +130,22 @@ class Chest(PlayerRPG):
         drop = choice(self.chest)
         if drop == "Arme":
             player.dps += 5 * player.level
+            print("Vous avez gagné", 5*player.level, "d'attaque.")
         elif drop == "Armure":
             player.defence += 4 * player.level
+            print("Vous avez gagné", 4*player.level, "de défense.")
         elif drop == "Potion de soin":
-            player.inventory.append("Soin")
+            player.inventory.append("Potion de soin")
             player.effect_amount = 250 * player.level
+            print("Vous avez gagné une potion de soin.")
         elif drop == "Potion de force":
-            player.inventory.append("Soin")
+            player.inventory.append("Potion de force")
             player.effect_amount = 10 * player.level
+            print("Vous avez gagné une Potion de force.")
         elif drop == "Potion de résistance":
-            player.inventory.append("Soin")
+            player.inventory.append("Potion de résistance")
             player.effect_amount = 5 * player.level
+            print("Vous avez gagné une Potion de résistance.")
 
 
 def fight(player, monster):
@@ -295,7 +300,9 @@ def move(step):
                             print(map.size[x])
                         return
                     elif step == "gauche" and map.size[i][j-1] == 2:
-                        Chest.item_dropped(joueur)
+                        coffre = Chest()
+                        coffre.item_dropped(joueur)
+                        print(joueur.inventory)
                         return
                 if i != 9:
                     if step == "bas" and map.size[i+1][j] in liste_condi:
