@@ -1,6 +1,4 @@
-from msilib.schema import Class
 import tkinter as tk
-from turtle import up
 from PIL import ImageTk, Image
 from random import choice
 
@@ -48,17 +46,17 @@ class PlayerRPG(Entity):
         self.inventory[choice].use(self)
 
     def attack(self, attack, monster):
-        if attack == "Armor breaker":
+        if attack == 1:
             self.dps += 12 + self.level
             monster.defence -= 2 * (0.2 * self.level)
 
-        if attack == "Cleaver":
+        if attack == 2:
             self.dps += 20 + self.level
 
-        if attack == "Light_attack":
+        if attack == 3:
             self.dps += 8 + self.level
 
-        if attack == "Heavy_attack":
+        if attack == 4:
             self.dps += 14 + self.level
 
 
@@ -141,15 +139,19 @@ class Chest(PlayerRPG):
 
 def fight(player, monster):
     while player.hp > 0 and monster.hp > 0:
-        print("Choisissez une attaque contre se monstre.")
-        print("'Armor breaker', 'Cleaver', 'Light attack', 'Heavy attack'")
+        print("Choisissez une attaque contre se monstre. \n")
+        print("[1] Armor breaker, [2] Cleaver, [3] Light attack, [4] Heavy attack \n")
         choice = input("Which attack do you want ?\n> ")
         player.attack(choice, monster)
         monster.hp -= player.dps - monster.defence
+        print("")
         print("Voici les points de vie du monstre", monster.hp)
-        print("Le monstre vous attaque.")
+        print("")
+        print("Le monstre vous attaque. \n")
         player.hp -= monster.dps - player.defence
+        print("")
         print("Voici vos points de vie", player.hp)
+        print("")
 
 
 class Map:
@@ -180,6 +182,7 @@ class Map:
             self.size = terr
         elif place == 2:
             fic = open("Maps/2 - clearing_map.txt", "r")
+            print("")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -191,6 +194,7 @@ class Map:
             self.size = terr
         elif place == 3:
             fic = open("Maps/3 - hall_donjon.txt", "r")
+            print("")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -202,6 +206,7 @@ class Map:
             self.size = terr
         elif place == 4:
             fic = open("Maps/4 - throne_hall.txt", "r")
+            print("")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -213,6 +218,7 @@ class Map:
             self.size = terr
         elif place == 5:
             fic = open("Maps/5 - rooftop_donjon.txt", "r")
+            print("")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -236,12 +242,12 @@ def move(step):
                         if map.size[i][j+1] == 5:
                             for x in range(10):
                                 print(map.size[x])
-                            print("vous entrez en combat.")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            print("Vous entrez en combat. \n")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
-                            print("Vous sortez de cette partie du donjon.")
+                            print("Vous sortez de cette partie du donjon. \n")
                             map.place += 1
                         map.size[i][j+1] = 7
                         map.size[i][j] = 0
@@ -256,12 +262,12 @@ def move(step):
                         if map.size[i][j-1] == 5:
                             for x in range(10):
                                 print(map.size[x])
-                            print("vous entrez en combat.")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            print("Vous entrez en combat. \n")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
-                            print("Vous sortez de cette partie du donjon.")
+                            print("Vous sortez de cette partie du donjon. \n")
                             map.place += 1
                         map.size[i][j-1] = 7
                         map.size[i][j] = 0
@@ -276,12 +282,12 @@ def move(step):
                         if map.size[i+1][j] == 5:
                             for x in range(10):
                                 print(map.size[x])
-                            print("vous entrez en combat.")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            print("Vous entrez en combat. \n")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
-                            print("Vous sortez de cette partie du donjon.")
+                            print("Vous sortez de cette partie du donjon. \n")
                             map.place += 1
                         map.size[i+1][j] = 7
                         map.size[i][j] = 0
@@ -296,12 +302,12 @@ def move(step):
                         if map.size[i-1][j] == 5:
                             for x in range(10):
                                 print(map.size[x])
-                            print("vous entrez en combat.")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon"])
+                            print("Vous entrez en combat. \n")
+                            monstre = choice(["Human", "Undead", "Robot", "Demon \n"])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
-                            print("Vous sortez de cette partie du donjon.")
+                            print("Vous sortez de cette partie du donjon. \n")
                             map.place += 1
                         map.size[i-1][j] = 7
                         map.size[i][j] = 0
@@ -311,7 +317,7 @@ def move(step):
                     elif step == "up" and map.size[i-1][j] == 2:
                         Chest().item_dropped(joueur)
                         return
-    print("Vous ne pouvez pas allez ici!")
+    print("Vous ne pouvez pas aller ici ! \n")
 
 
 def affichage(numero):
@@ -362,13 +368,14 @@ def affichage(numero):
         story4.mainloop()
 
 
-print("Bienvenu sur RPG ATA, veuillez choisir votre classe de personnage entre 'Warrior', 'Hunter', 'Rogue', 'Monk'. ")
+print("Bienvenue sur RPG ATA, veuillez choisir votre classe de personnage entre : 'Warrior', 'Hunter', 'Rogue', 'Monk'. \n")
 player_type = input("> ")
 joueur = PlayerRPG(player_type)
-print("Vous vous trouvez dans la forêt. Voici la map.")
+print("Vous vous trouvez dans la forêt. Voici la map : \n")
 verif = 1
 map = Map(1)
-print("Vous êtes le numéro 7, où souhaitez-vous vous déplacer ?")
+print("")
+print("Vous êtes le numéro 7, où souhaitez-vous vous déplacer ? \n")
 print("'right', 'left', 'down', 'up'")
 step = input("> ")
 move(step)
@@ -376,7 +383,7 @@ move(step)
 
 def game(verif):
     while map.place == verif:
-        print("Où souhaitez-vous vous déplacer ?")
+        print("Où souhaitez-vous vous déplacer ? \n")
         print("'right', 'left', 'down', 'up'")
         step2 = input("> ")
         move(step2)
@@ -386,7 +393,7 @@ def game(verif):
 
         game(verif)
     else:
-        print("Vous avez fini le jeu.")
+        print("Vous avez fini le jeu. \n")
 
 
 game(verif)
