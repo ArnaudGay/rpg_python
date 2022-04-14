@@ -1,3 +1,4 @@
+from re import I
 import tkinter as tk
 from PIL import ImageTk, Image
 from random import choice
@@ -110,44 +111,53 @@ class Potion(Item):
 
 
 class Chest(PlayerRPG):
-    def __init__(self, effect_amount, level):
-        super().__init__(level)
+    def __init__(self):
         self.chest = ["Arme", "Armure", "Potion de soin", "Potion de force",
                       "Potion de résistance"]
 
     def item_dropped(self, player):
-        if self.chest == "Arme":
-            player.dps += 5 * self.level
-
-        if self.chest == "Armure":
-            player.defence += 4 * self.level
-
-        if self.chest == "Potion de soin":
-            self.effect_amount = 250 * self.level
-
-        if self.chest == "Potion de force":
-            self.effect_amount = 10 * self.level
-
-        if self.chest == "Potion de résistance":
-            self.effect_amount = 5 * self.level
+        drop = choice(self.chest)
+        if drop == "Arme":
+            player.dps += 5 * player.level
+        elif drop == "Armure":
+            player.defence += 4 * player.level
+        elif drop == "Potion de soin":
+            player.inventory.append("Soin")
+            player.effect_amount = 250 * player.level
+        elif drop == "Potion de force":
+            player.inventory.append("Soin")
+            player.effect_amount = 10 * player.level
+        elif drop == "Potion de résistance":
+            player.inventory.append("Soin")
+            player.effect_amount = 5 * player.level
 
 
 def fight(player, monster):
     while player.hp > 0 and monster.hp > 0:
-        print("Choisissez une attaque contre ce monstre.", "\n")
-        print("[1] Brise-armure, [2] Fendoir, [3] Attaque légère, [4] Attaque lourde", "\n")
-        choice = input("Quel attaque voulez-vous utiliser ?\n> ")
-        player.attack(choice, monster)
-        monster.hp -= player.dps - monster.defence
-        print("---------------------------------------")
-        print("Voici les points de vie du monstre", monster.hp)
-        print("")
-        print("Le monstre vous attaque.", "\n")
-        monster.attack()
-        if monster.dps > player.defence:
-            player.hp -= monster.dps - player.defence
-        print("Voici vos points de vie", player.hp)
-        print("---------------------------------------")
+        print("Vous souhaitez attaquer ou ouvrir votre inventaire ?\n")
+        result = input("[1] Attaquer - [2] - Inventaire\n> ")
+        if result == "1":
+            print("Choisissez une attaque contre ce monstre.", "\n")
+            print("[1] Brise-armure, [2] Fendoir, [3] Attaque légère, [4] Attaque lourde", "\n")
+            choice = input("Quel attaque voulez-vous utiliser ?\n> ")
+            player.attack(choice, monster)
+            monster.hp -= player.dps - monster.defence
+            print("---------------------------------------")
+            print("Voici les points de vie du monstre", monster.hp)
+            print("")
+            print("Le monstre vous attaque.", "\n")
+            monster.attack()
+            if monster.dps > player.defence:
+                player.hp -= monster.dps - player.defence
+            print("Voici vos points de vie", player.hp)
+            print("---------------------------------------")
+        elif result == "2":
+            print("Voici votre inventaire:")
+            for i in range(len(player.inventory)):
+                print(i, player.inventory[i])
+            print("Choissisez l'item que vous souhaitez utiliser, potion uniquement.")
+        else:
+            print("Votre action n'est pas possible!")
 
 
 class Map:
@@ -270,7 +280,7 @@ def move(step):
                             print(map.size[x])
                         return
                     elif step == "gauche" and map.size[i][j-1] == 2:
-                        Chest().item_dropped(joueur)
+                        Chest.item_dropped(joueur)
                         return
                 if i != 9:
                     if step == "bas" and map.size[i+1][j] in liste_condi:
