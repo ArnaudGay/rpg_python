@@ -1,4 +1,3 @@
-from re import I
 import tkinter as tk
 from PIL import ImageTk, Image
 from random import choice
@@ -36,6 +35,8 @@ class PlayerRPG(Entity):
             self.dps += 5 * self.level
             self.defence += 5 * self.level
             self.hp += 20 * self.level
+            print("BRAVO !!! Vous gagnez un niveau")
+            print("Vous passez niveau", self.level)
 
     def open_inventory(self):
         for i in range(0, len(self.inventory), 1):
@@ -71,19 +72,29 @@ class PlayerRPG(Entity):
 class Monster(Entity):
     def __init__(self, monster_type):
         if monster_type == 1:
-            print("Humain")
+            print("")
+            print("Vous affrontez un humain")
+            print("")
             Entity.__init__(self, 30, 10, 220)
         if monster_type == 2:
-            print("Mort-vivant")
+            print("")
+            print("Vous affrontez un mort-vivant")
+            print("")
             Entity.__init__(self, 35, 12, 180)
         if monster_type == 3:
-            print("Robot")
+            print("")
+            print("Vous affrontez un robot")
+            print("")
             Entity.__init__(self, 40, 15, 300)
         if monster_type == 4:
-            print("Démon")
+            print("")
+            print("Vous affrontez un démon")
+            print("")
             Entity.__init__(self, 45, 13, 260)
         if monster_type == 5:
-            print("Boss")
+            print("")
+            print("Vous affrontez un boss")
+            print("")
             Entity.__init__(self, 70, 20, 500)
 
     def attack(self, player):
@@ -93,12 +104,12 @@ class Monster(Entity):
         if attack == "Attaque légère":
             self.dps += 5
             self.dps -= player.defence/10
-            print(attack, "\n")
+            print("Il utilise une attaque légère", "\n")
 
         if attack == "Attaque lourde":
             self.dps += 10
             self.dps -= player.defence/10
-            print(attack, "\n")
+            print("Il utilise une attaque lourde" "\n")
 
 
 class Potion():
@@ -109,7 +120,7 @@ class Potion():
 
     def use(self, player):
         print("")
-        print("Quelle potion souhaitez-vous utiliser : [1] Potion de soin, [2] Potion de force, [3] Potion de résistance")
+        print("Quelle potion souhaitez-vous utiliser : [1] Potion de soin / [2] Potion de force / [3] Potion de résistance")
         potion_choice = input("> ")
         if potion_choice == 1:
             player.hp += 200
@@ -146,31 +157,38 @@ class Chest(PlayerRPG):
 
 def fight(player, monster):
     while player.hp > 0 and monster.hp > 0:
-        print("Vous souhaitez attaquer ou ouvrir votre inventaire ?\n")
-        result = input("[1] Attaquer - [2] - Inventaire\n> ")
+        print("Souhaitez-vous attaquer ou ouvrir votre inventaire ?\n")
+        result = input("[1] Attaquer / [2] Inventaire\n>")
         if result == "1":
-            print("Choisissez une attaque contre ce monstre.", "\n")
-            print("[1] Brise-armure, [2] Fendoir, [3] Attaque légère, [4] Attaque lourde", "\n")
-            choice = input("Quel attaque voulez-vous utiliser ?\n> ")
-            player.attack(choice, monster)
-            monster.hp -= player.dps - monster.defence
-            print("---------------------------------------")
-            print("Voici les points de vie du monstre", monster.hp)
             print("")
-            print("Le monstre vous attaque.", "\n")
-            monster.attack()
-            if monster.dps > player.defence:
-                player.hp -= monster.dps - player.defence
-            print("Voici vos points de vie", player.hp)
+            print("Choisissez une attaque contre ce monstre.", "\n")
+            print("[1] Brise-armure / [2] Fendoir / [3] Attaque légère / [4] Attaque lourde", "\n")
+            choice = input("Quel attaque voulez-vous utiliser ?\n>")
+            player.attack(choice, monster)
+            monster.hp -= player.dps
+            print("---------------------------------------")
+            print("Vous infligez", player.dps,"dégats")
+            print("Voici les points de vie du monstre: ", monster.hp)
+            print("---------------------------------------")
+            print("Le monstre vous attaque !", "\n")
+            monster.attack(player)
+            if monster.dps > (player.defence / 10):
+                player.hp -= monster.dps
+                print("Cette attaque vous fait", monster.dps, "dégats")
+                print("Voici vos points de vie: ", player.hp)
+            else:
+                print("Cette attaque ne vous fait rien")
             print("---------------------------------------")
         elif result == "2":
             print("Voici votre inventaire:")
             for i in range(len(player.inventory)):
                 print(i, player.inventory[i])
-            print("Choissisez l'item que vous souhaitez utiliser, potion uniquement.")
+            print("")
+            print("Choissisez l'objet que vous souhaitez utiliser, potion uniquement.")
         else:
-            print("Votre action n'est pas possible!")
-
+            print("Votre action n'est pas possible !")
+    if monster.hp <= 0 :
+        player.experience += 200
 
 class Map:
     def __init__(self, place):
@@ -260,13 +278,13 @@ def move(step):
                             for x in range(10):
                                 print(map.size[x])
                             print("----------------------")
-                            print("Vous entrez en combat")
+                            print("!!! Vous entrez en combat !!!")
                             print("----------------------")
                             monstre = choice([1, 2, 3, 4, 5])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
-                            print("Vous sortez de cette partie du donjon.",  "\n")
+                            print("Vous sortez de cette partie du donjon",  "\n")
                             map.place += 1
                         map.size[i][j+1] = 7
                         map.size[i][j] = 0
@@ -288,7 +306,7 @@ def move(step):
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
-                            print("Vous sortez de cette partie du donjon.", "\n")
+                            print("Vous sortez de cette partie du donjon", "\n")
                             map.place += 1
                         map.size[i][j-1] = 7
                         map.size[i][j] = 0
@@ -310,7 +328,7 @@ def move(step):
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
-                            print("Vous sortez de cette partie du donjon. \n")
+                            print("Vous sortez de cette partie du donjon", "\n")
                             map.place += 1
                         map.size[i+1][j] = 7
                         map.size[i][j] = 0
@@ -332,7 +350,7 @@ def move(step):
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
-                            print("Vous sortez de cette partie du donjon. \n")
+                            print("Vous sortez de cette partie du donjon", "\n")
                             map.place += 1
                         map.size[i-1][j] = 7
                         map.size[i][j] = 0
@@ -400,28 +418,52 @@ def affichage(numero):
 
 affichage(0)
 print("--------------------------------------------------------------------------------------------------------------------")
-print("Bienvenue sur RPG ATA, veuillez choisir votre classe de personnage entre : 'Guerrier', 'Chasseur', 'Voleur', 'Moine'")
+print("Bienvenue sur RPG ATA, veuillez choisir votre classe de personnage entre: ")
+print("[1] Guerrier / [2] Chasseur / [3] Voleur / [4] Moine")
 print("--------------------------------------------------------------------------------------------------------------------")
 player_type = input("> ")
+if player_type == "1" or player_type == "guerrier":
+    player_type = "Guerrier"
+elif player_type == "2" or player_type == "chasseur":
+    player_type = "Chasseur"
+elif player_type == "3" or player_type == "voleur":
+    player_type = "Voleur"
+elif player_type == "4" or player_type == "moine":
+    player_type = "Moine"
 joueur = PlayerRPG(player_type)
 print("")
-print("Vous vous trouvez dans la forêt. Voici la carte :", "\n")
+print("Vous vous trouvez dans la forêt. Voici la carte: ", "\n")
 verif = 1
 map = Map(1)
 print("")
 print("Vous êtes le chiffre 7, où souhaitez-vous vous déplacer ?", "\n")
-print("'droite', 'gauche', 'bas', 'haut'")
+print("[1] Droite / [2] Gauche / [3] Bas / [4] Haut")
 step = input("> ")
+if step == "1" or step == "Droite":
+    step = "droite"
+elif step == "2" or step == "Gauche":
+    step = "gauche"
+elif step == "3" or step == "Bas":
+    step = "bas"
+elif step == "4" or step == "Haut":
+    step = "haut"
 move(step)
 
 
 def game(verif):
     global map
     while map.place == verif:
-        print("")
         print("Où souhaitez-vous vous déplacer ? \n")
-        print("'droite', 'gauche', 'bas', 'haut'")
+        print("[1] Droite / [2] Gauche / [3] Bas / [4] Haut")
         step2 = input("> ")
+        if step2 == "1" or step2 == "Droite":
+            step2 = "droite"
+        elif step2 == "2" or step2 == "Gauche":
+            step2 = "gauche"
+        elif step2 == "3" or step2 == "Bas":
+            step2 = "bas"
+        elif step2 == "4" or step2 == "Haut":
+            step2 = "haut"
         move(step2)
     map = Map(map.place + 1)
     if map.place < 5:
@@ -429,7 +471,7 @@ def game(verif):
         verif = map.place
         game(verif)
     else:
-        print("Vous avez fini le jeu. \n")
+        print("BRAVO !!! Vous avez fini le jeu \n")
 
 
 game(verif)
