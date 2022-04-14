@@ -62,15 +62,15 @@ class PlayerRPG(Entity):
 
 class Monster(Entity):
     def __init__(self, monster_type):
-        if monster_type == "Humain":
+        if monster_type == 1:
             Entity.__init__(self, 19, 5, 220)
-        if monster_type == "Mort-vivant":
+        if monster_type == 2:
             Entity.__init__(self, 21, 7, 180)
-        if monster_type == "Robot":
+        if monster_type == 3:
             Entity.__init__(self, 20, 10, 300)
-        if monster_type == "Démon":
+        if monster_type == 4:
             Entity.__init__(self, 25, 8, 260)
-        if monster_type == "Boss":
+        if monster_type == 5:
             Entity.__init__(self, 50, 18, 500)
 
     def attack(self):
@@ -79,12 +79,11 @@ class Monster(Entity):
 
         if attack == "Attaque légère":
             self.dps += 5
-            print(attack)
+            print(attack, "\n")
 
         if attack == "Attaque lourde":
             self.dps += 10
-
-            print(attack)
+            print(attack, "\n")
 
 
 class Item:
@@ -140,7 +139,7 @@ def fight(player, monster):
         choice = input("Quel attaque voulez-vous utiliser ?\n> ")
         player.attack(choice, monster)
         monster.hp -= player.dps - monster.defence
-        print("")
+        print("---------------------------------------")
         print("Voici les points de vie du monstre", monster.hp)
         print("")
         print("Le monstre vous attaque.", "\n")
@@ -148,7 +147,7 @@ def fight(player, monster):
         if monster.dps > player.defence:
             player.hp -= monster.dps - player.defence
         print("Voici vos points de vie", player.hp)
-        print("")
+        print("---------------------------------------")
 
 
 class Map:
@@ -179,7 +178,6 @@ class Map:
             self.size = terr
         elif place == 2:
             fic = open("Maps/2 - clearing_map.txt", "r")
-            print("")
             terr = []
             for ligne in fic:
                 terr_bis = []
@@ -235,12 +233,12 @@ def move(step):
         for j in range(1, 10):
             if map.size[i][j] == 7:
                 if j != 9:
-                    if step == "right" and map.size[i][j+1] in liste_condi:
+                    if step == "droite" and map.size[i][j+1] in liste_condi:
                         if map.size[i][j+1] == 5:
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat.", "\n")
-                            monstre = choice(["Humain", "Mort-vivant", "Robot", "Démon", "\n"])
+                            monstre = choice([1, 2, 3, 4, 5])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j+1] == 8:
@@ -251,16 +249,16 @@ def move(step):
                         for x in range(10):
                             print(map.size[x])
                         return
-                    elif step == "right" and map.size[i][j+1] == 2:
+                    elif step == "droite" and map.size[i][j+1] == 2:
                         Chest().item_dropped(joueur)
                         return
                 if j != 0:
-                    if step == "left" and map.size[i][j-1] in liste_condi:
+                    if step == "gauche" and map.size[i][j-1] in liste_condi:
                         if map.size[i][j-1] == 5:
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Human", "Undead", "Robot", "Demon", "\n"])
+                            monstre = choice([1, 2, 3, 4, 5])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i][j-1] == 8:
@@ -271,16 +269,16 @@ def move(step):
                         for x in range(10):
                             print(map.size[x])
                         return
-                    elif step == "left" and map.size[i][j-1] == 2:
+                    elif step == "gauche" and map.size[i][j-1] == 2:
                         Chest().item_dropped(joueur)
                         return
                 if i != 9:
-                    if step == "down" and map.size[i+1][j] in liste_condi:
+                    if step == "bas" and map.size[i+1][j] in liste_condi:
                         if map.size[i+1][j] == 5:
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Humain", "Mort-vivant", "Robot", "Démon", "\n"])
+                            monstre = choice([1, 2, 3, 4, 5])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i+1][j] == 8:
@@ -291,16 +289,16 @@ def move(step):
                         for x in range(10):
                             print(map.size[x])
                         return
-                    elif step == "down" and map.size[i+1][j] == 2:
+                    elif step == "bas" and map.size[i+1][j] == 2:
                         Chest().item_dropped(joueur)
                         return
                 if i != 0:
-                    if step == "up" and map.size[i-1][j] in liste_condi:
+                    if step == "haut" and map.size[i-1][j] in liste_condi:
                         if map.size[i-1][j] == 5:
                             for x in range(10):
                                 print(map.size[x])
                             print("Vous entrez en combat. \n")
-                            monstre = choice(["Humain", "Mort-vivant", "Robot", "Démon", "\n"])
+                            monstre = choice([1, 2, 3, 4, 5])
                             figter1 = Monster(monstre)
                             fight(joueur, figter1)
                         elif map.size[i-1][j] == 8:
@@ -311,7 +309,7 @@ def move(step):
                         for x in range(10):
                             print(map.size[x])
                         return
-                    elif step == "up" and map.size[i-1][j] == 2:
+                    elif step == "haut" and map.size[i-1][j] == 2:
                         Chest().item_dropped(joueur)
                         return
     print("Vous ne pouvez pas aller ici ! \n")
@@ -364,14 +362,14 @@ def affichage(numero):
         button.pack(side='right', padx=50)
         story4.mainloop()
 
-
-print("Bienvenue sur RPG ATA, veuillez choisir votre classe de personnage entre : 'Guerrier', 'Chasseur', 'Voleur', 'Moine'.", "\n")
+print("--------------------------------------------------------------------------------------------------------------------")
+print("Bienvenue sur RPG ATA, veuillez choisir votre classe de personnage entre : 'Guerrier', 'Chasseur', 'Voleur', 'Moine'")
+print("--------------------------------------------------------------------------------------------------------------------")
 player_type = input("> ")
 joueur = PlayerRPG(player_type)
 print("Vous vous trouvez dans la forêt. Voici la carte :", "\n")
 verif = 1
 map = Map(1)
-affichage(map.place)
 print("")
 print("Vous êtes le numéro 7, où souhaitez-vous vous déplacer ?", "\n")
 print("'droite', 'gauche', 'bas', 'haut'")
@@ -388,7 +386,7 @@ def game(verif):
         move(step2)
     map = Map(map.place + 1)
     if map.place < 5:
-        affichage(map.place)
+        affichage(map.place-1)
         verif = map.place
         game(verif)
     else:
