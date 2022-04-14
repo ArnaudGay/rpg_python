@@ -15,15 +15,19 @@ class PlayerRPG(Entity):
         if player_type == "Guerrier":
             Entity.__init__(self, 70, 80, 640)
             self.inventory = ["Épée à deux mains", "Armure en plaques"]
-        if player_type == "Chasseur":
+            self.player_type = "Guerrier"
+        elif player_type == "Chasseur":
             Entity.__init__(self, 90, 60, 520)
             self.inventory = ["Arc", "Armure en mailles"]
-        if player_type == "Voleur":
+            self.player_type = "Chasseur"
+        elif player_type == "Voleur":
             Entity.__init__(self, 110, 40, 480)
             self.inventory = ["Dagues", "Armure en cuir"]
-        if player_type == "Moine":
+            self.player_type = "Voleur"
+        elif player_type == "Moine":
             Entity.__init__(self, 80, 60, 580)
             self.inventory = ["Bâton", "Armure en cuir"]
+            self.player_type = "Moine"
         self.level = 1
         self.experience = 0
         self.level_xp = 200 * self.level
@@ -52,29 +56,53 @@ class PlayerRPG(Entity):
             print("Vous utilisez 'Brise-armure'")
             if self.player_type == "Guerrier":
                 self.dps = 70
-            if self.player_type == "Chasseur":
+            elif self.player_type == "Chasseur":
                 self.dps = 90
-            if self.player_type == "Voleur":
+            elif self.player_type == "Voleur":
                 self.dps = 110
-            if self.player_type == "Moine":
+            elif self.player_type == "Moine":
                 self.dps = 80
             self.dps += 12 + self.level
             self.dps -= monster.defence/10
 
-        if attack == 2:
+        elif attack == 2:
             print("Vous utilisez 'Fendoir'")
+            if self.player_type == "Guerrier":
+                self.dps = 70
+            elif self.player_type == "Chasseur":
+                self.dps = 90
+            elif self.player_type == "Voleur":
+                self.dps = 110
+            elif self.player_type == "Moine":
+                self.dps = 80
             self.dps = player_type.dps
             self.dps += 20 + self.level
             self.dps -= monster.defence/10
 
-        if attack == 3:
+        elif attack == 3:
             print("Vous utilisez 'Attaque légère'")
+            if self.player_type == "Guerrier":
+                self.dps = 70
+            elif self.player_type == "Chasseur":
+                self.dps = 90
+            elif self.player_type == "Voleur":
+                self.dps = 110
+            elif self.player_type == "Moine":
+                self.dps = 80
             self.dps = player_type.dps
             self.dps += 8 + self.level
             self.dps -= monster.defence/10
 
-        if attack == 4:
+        elif attack == 4:
             print("Vous utilisez 'Attaque lourde'")
+            if self.player_type == "Guerrier":
+                self.dps = 70
+            elif self.player_type == "Chasseur":
+                self.dps = 90
+            elif self.player_type == "Voleur":
+                self.dps = 110
+            elif self.player_type == "Moine":
+                self.dps = 80
             self.dps = player_type.dps
             self.dps += 14 + self.level
             self.dps -= monster.defence/10
