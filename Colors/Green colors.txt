@@ -1,7 +1,0 @@
-#003D00 - Forest Green Traditional
-
-#006600 - Pakistan Green
-
-#008F00 - India Green
-
-#00B800 - Yellow Green Color Wheel
