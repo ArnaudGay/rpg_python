@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 from random import choice
 
+
 class Entity:
     def __init__(self, dps, defence, hp):
         self.dps = dps
@@ -10,18 +11,18 @@ class Entity:
 
 
 class PlayerRPG(Entity):
-    def __init__(self, player_type, player):
+    def __init__(self, player_type):
         if player_type == "Warrior":
-            Entity.__init__(self, 70, 80, 640, player)
+            Entity.__init__(self, 70, 80, 640)
             self.inventory = ["Two-handed sword", "Plate armor"]
         if player_type == "Hunter":
-            Entity.__init__(self, 90, 60, 520, player)
+            Entity.__init__(self, 90, 60, 520)
             self.inventory = ["Bow", "Mail armor"]
         if player_type == "Rogue":
-            Entity.__init__(self, 110, 40, 480, player)
+            Entity.__init__(self, 110, 40, 480)
             self.inventory = ["Daggers", "Leather armor"]
         if player_type == "Monk":
-            Entity.__init__(self, 80, 60, 580, player)
+            Entity.__init__(self, 80, 60, 580)
             self.inventory = ["Stave", "Leather armor"]
         self.level = 1
         self.experience = 0
@@ -224,38 +225,34 @@ class Map:
         step = step
         for i in range(len(self.size)):
             for j in range(1, 10):
-                if step == "right_key":
-                    self.size[i][j] == self.size[i][j+1]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i][j-1]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i][j-1]
-                    if self.size[j] == 4:
-                        self.size[i][j] -= self.size[i][j-1]
-                if step == "left_key":
-                    self.size[i][j] == self.size[i][j-1]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i][j+1]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i][j+1]
-                    if self.size[j] == 4:
-                        self.size[i][j] -= self.size[i][j+1]
-                if step == "down_key":
-                    self.size[i][j] == self.size[i-1][j]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i+1][j]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i+1][j]
-                    if self.size[j] == 4:
-                        self.size[i][j] -= self.size[i+1][j]
-                if step == "up_key":
-                    self.size[i][j] == self.size[i+1][j]
-                    if self.size[j] == 2:
-                        self.size[i][j] -= self.size[i-1][j]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i-1][j]
-                    if self.size[j] == 3:
-                        self.size[i][j] -= self.size[i-1][j]
+                if self.size[i][j] == 7:
+                    if step == "right" and self.size[i][j+1] == 0:
+                        print("oui")
+                        self.size[i][j+1] = 7
+                        self.size[i][j] = 0
+                        for x in range(10):
+                            print(self.size[x])
+                        break
+                    elif step == "left" and self.size[i][j-1] == 0:
+                        print("oui")
+                        self.size[i][j-1] = 7
+                        self.size[i][j] = 0
+                    if step == "down":
+                        self.size[i][j] == self.size[i-1][j]
+                        if self.size[j] == 2:
+                            self.size[i][j] -= self.size[i+1][j]
+                        if self.size[j] == 3:
+                            self.size[i][j] -= self.size[i+1][j]
+                        if self.size[j] == 4:
+                            self.size[i][j] -= self.size[i+1][j]
+                    if step == "up":
+                        self.size[i][j] == self.size[i+1][j]
+                        if self.size[j] == 2:
+                            self.size[i][j] -= self.size[i-1][j]
+                        if self.size[j] == 3:
+                            self.size[i][j] -= self.size[i-1][j]
+                        if self.size[j] == 3:
+                            self.size[i][j] -= self.size[i-1][j]
 
 
 
@@ -309,5 +306,16 @@ class Interface:
         button.pack(side='right', padx=50)
         story4.mainloop()
 
-map = Map(1)
-interface = Interface()
+
+print("Bienvenu sur RPG ATA, veuillez choisir votre classe de personnage entre 'Warrior', 'Hunter', 'Rogue', 'Monk'. ")
+player_type = input("> ")
+player = PlayerRPG(player_type)
+print("Vous vous trouvez dans la forêt. Voici la map.")
+place = 1
+map = Map(place)
+for i in range(10):
+    print(map.size[i])
+print("Vous êtes le numéro 7, où souhaitez-vous vous déplacer ?")
+print("'right', 'left', 'down', 'up'")
+step = input("> ")
+Map(place).move(step)
